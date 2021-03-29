@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+
+{% include head.html %}
+
+<body>
+{% include nav.html %}
+
+<h2 id={{ page.title-id }}> {{ page.title }} </h2>
+{{ content }}
+
+{% include footer.html %}
+</body>
+
+</html>
