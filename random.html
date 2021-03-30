@@ -1,0 +1,33 @@
+---
+layout: default
+title: Projects and Fun
+---
+Here's a few of the things I've done over the last few years, plus some other cool stuff I thought was website-worthy.
+<div>
+    <h3>Projects</h3>
+    <ul>
+        {% for post in site.posts %}
+            {% if post.categories contains 'projects' %}
+                <li>
+                    <b>{{post.date | date: "%b %Y"}}:</b>
+                    {{ post.description }}
+                    (<a href="{{post.url}}">more info</a>)
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+<div>
+    <h3>Other</h3>
+    <ul>
+        {% for post in site.posts %}
+            {% if post.categories contains 'other' %}
+                <li>
+                    <b>{{post.date | date: "%b %Y"}}:</b>
+                    {{ post.description }}
+                    (<a href="{{post.url}}">more info</a>)
+                </li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>

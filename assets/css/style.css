@@ -48,12 +48,12 @@ li {
 }
 
 /* Columns */
-.col_left {
+.col_left_home {
     float: left;
     width: 30%;
     padding: 0 10px;
 }
-.col_right {
+.col_right_home {
     float: left;
     width: 55%;
     padding: 0 10px;
@@ -65,3 +65,7 @@ li {
     clear: both;
 }
 /* END Columns */
+
+ul.dashed {
+    list-style-type: "- ";
+}
