@@ -1,0 +1,72 @@
+I"�<p>The circuitry behind this car needed to drive the motors with a 12 V supply (the easy part) and use two ultrasonic sensors to determine the direction it should turn in order to move towards an ultrasonic signal. This is the overall outline of the logic:
+            &lt;img src="/assets/img/works/ee-7/flow_chart.jpg"&gt;
+            All of these steps except for the PWM and motors (right/left included) are driven by op-amps. The red path represents PWM. Offsets had to be hand-tuned using several potentiometers. You can view a scan of the full circuit &lt;a href="/assets/img/works/ee-7/full-circuit.pdf" target="_blank"&gt;here&lt;/a&gt;. I go into more detail with each part below.
+            &lt;h2 class="black-color"&gt;Parts&lt;/h2&gt;
+            &lt;ul&gt;
+              &lt;li&gt;6 op-amps (2 chips)&lt;/li&gt;
+              &lt;li&gt;1 "weird" op-amp (or inverter chip)&lt;/li&gt;
+              &lt;li&gt;2 TIP 112&lt;/li&gt;
+              &lt;li&gt;2 diodes&lt;/li&gt;
+              &lt;li&gt;1 50 Hz pulse generator chip&lt;/li&gt;
+            &lt;/ul&gt;
+            &lt;div class="container" style="padding-top:0;padding-bottom:0;"&gt;
+              &lt;h2 class="black-color"&gt;Inputs and Subtractor&lt;/h2&gt;
+              &lt;div class="col-md-5"&gt;
+                &lt;img src="/assets/img/works/ee-7/inputs-subtractor.jpg"&gt;
+              &lt;/div&gt;
+              &lt;div class="col-md-auto"&gt;
+                &lt;p&gt;The ultrasonic sensors used (L and R) output a voltage proportional to the intensity of an ultrasonic signal near their resonance frequency. In the first step, large resistors are used to ensure their currents are low (allowing use of op-amp idealities). Then, the left sensor output is sent through an inverting op-amp, turning its voltage negative.&lt;/p&gt;
+                &lt;p&gt;The summer then adds the right sensor’s voltage (V<sub>R</sub>) to the negative left sensor’s voltage (V<sub>L</sub>). The summer also multiplied the value by a the natio of R4 to R5. The equavilent equation of this step is:&lt;/p&gt;
+                &lt;center class="black-color"&gt;<math>V<sub>out</sub>=(V<sub>R</sub>-V<sub>L</sub>)&middot;(-R4/R5)</math>&lt;/center&gt;
+                &lt;p&gt;I’ve now turned two signals into a single singal voltage that increases when the ultrasonic pulse moves further left and decreases when the pulse moves further right!&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div class="container" style="padding-top:0;padding-bottom:0;"&gt;
+              &lt;h2 class="black-color"&gt;Offset&lt;/h2&gt;
+              &lt;div class="col-md-3"&gt;
+                &lt;img src="/assets/img/works/ee-7/first-offset.jpg"&gt;
+              &lt;/div&gt;
+              &lt;div class="col-md-auto"&gt;
+                &lt;p&gt;Now we have a signal that changes based on the location of the ultrasonic pulse, but where is 0? That’s what the offset is for. Using an oscilloscope we carefully tuned the potentiometer to make the signal 0 when the ultrasonic pulse was right in front of the car. This way a negative signal means turn right, and a positive signal means turn left! This part also has a fixed gain of 0.1.&lt;/p&gt;
+                &lt;p&gt;The next part is where the two control mechanisms diverge. Due to time constraints we were only able to tune the bang-bang version, so I will go into that now &lt;a href=#pwm&gt;(skip to the continuation of the PWM version)&lt;/a&gt;&lt;/p&gt;
+                &lt;div class="col-md-5"&gt;
+                  &lt;h2 class="black-color"&gt;Bang-bang signal&lt;/h2&gt;
+                  &lt;p&gt;Once that offset signal makes its way to the bang-bang part of the circuit, it splits into two paths. The unmodified signal goes to path (5), where it sends a TIP 112 into saturation and triggers the left motor. The other path is inverted and sent to a TIP 112 to trigger the right motor.&lt;/p&gt;
+                  &lt;p&gt;IF the voltage at (3) is negative, the voltage at (5) is also negative and the left motor does not turn on. The voltage at (4), however, is inverted to become positive, triggering the right motor. In the opposite case, a positive voltage at (3) means a positive voltage at (5) that triggers the left motor, but a negative voltage at (4) that does not trigger the right motor.&lt;/p&gt;
+                &lt;/div&gt;
+                &lt;div class="col-md-4"&gt;
+                  &lt;img src="/assets/img/works/ee-7/end_bang-bang.jpg"&gt;
+                &lt;/div&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;p&gt;The gains were tuned to push the TIP112 into saturation at a small voltage difference between the left and right ultrasonic sensors. &lt;a href=#motors&gt;Skip to the circuit where (4) and (5) lead&lt;/a&gt;.&lt;/p&gt;</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        &lt;div class=\"container\" style=\"padding-top:0;padding-bottom:0;\"&gt;
+          &lt;a id=\"pwm\"&gt;
+            &lt;h2 class=\"black-color\"&gt;PWM: Integrator and offset&lt;/h2&gt;
+          &lt;/a&gt;
+          &lt;div class=\"col-md-4\"&gt;
+            &lt;img src=\"/assets/img/works/ee-7/integrator-pwm.jpg\"&gt;
+          &lt;/div&gt;
+          &lt;div class=\"col-md-auto\"&gt;
+            &lt;p&gt;This is the PI part of the the PI control. The offset difference between the two ultrasonic sensors is the signal coming in. The integrator op-amp integrates that difference and multiplies it by a constant (&lt;math&gt;-1/(R9&amp;middot;C1)&lt;/math&gt;), producing both the proportional and integral parts of the control. That output could feed directly into the pulse generator, but we included one additional offset to make sure the car traveled at about walking speed.&lt;/p&gt;
+            &lt;p&gt;From (1), the signal traveled to CVOLT of our 50 Hz pulse generator. The pulse generator converted the analog signal into a digital one (PWM). This PWM signal then traveled to (2).&lt;/p&gt;
+            &lt;center&gt;&lt;p class=\"black-color\"&gt;(1): analog&amp;rarr;pulse generator&amp;rarr;(2): digital PWM&lt;/p&gt;&lt;/center&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=\"container\" style=\"padding-top:0;padding-bottom:0;\"&gt;
+          &lt;a id=\"motors\"&gt;
+            &lt;h2 class=\"black-color\"&gt;The Final Step&lt;/h2&gt;
+          &lt;/a&gt;
+          &lt;div class=\"col-md-7\"&gt;
+            &lt;p&gt;The subtracted, offset, integrated, re-offset, and PWM-ized signal enters at (2) and splits into two for each of the motors. The top path is the left motor, which is unmodified except for a large resistor to keep current low and put the TIP112 into saturation.&lt;/p&gt;
+            &lt;p&gt;The lower path, to the right motor, has a similar resistor and an additional op-amp. However, this op-amp takes 9V and 0V, so it inverts the signal about the &lt;math&gt;V=4.5 V&lt;/math&gt; line. If a 90% ON PWM signal enters through 2, the left motor is given 90% power and the right motor is given 10% power. When the signal is 50% ON, both motors are given 50% power.&lt;/p&gt;
+            &lt;p&gt;Once the signal, whether it is bang-bang or PWM, reaches the TIP112, it puts it in saturation and current flows through the motor while the signal is HIGH (ON). The motor is powered with a separate supply and has a small flyback diode across it to safeguard against any inductive spikes from the motor.&lt;/p&gt;
+          &lt;/div&gt;
+          &lt;div class=\"col-md-5\"&gt;
+            &lt;img src=\"/assets/img/works/ee-7/end_all.jpg\"&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;center class=\"black-color\"&gt;&lt;b&gt;&lt;a href=/assets/img/works/ee-7/full-circuit.pdf&gt;View the full circuit&lt;/a&gt;&lt;/b&gt;&lt;/center&gt;
+</code></pre></div></div>
+:ET

@@ -6,7 +6,15 @@ title: Research
     <h3>AMBER Lab (2020—present)</h3>
     I'm working with Dr. Aaron Ames and Maegan Tucker (a grad student) to develop a robust ankle exoskeleton design. Here's a brief timeline of my work:
     <ul>
-        <li><b>Summer 2020:</b> Mechanical/electrical design of powered, strut-based ankle exoskeleton (read more).</li>
+        <li><b>Summer 2020:</b> Mechanical/electrical design of powered, strut-based ankle exoskeleton
+            (<a href="
+            {% for post in site.posts %}
+                {% if post.short-name contains 'ankle-exo-surf' %}
+                    {{post.url}}
+                    {% break %}
+                {% endif %}
+            {% endfor %}
+            ">read more</a>).</li>
         <li><b>Fall 2020:</b> Controls simulation for strut-based ankle exo.</li>
         <li><b>Current:</b> Development of passive, spring-based ankle exo.</li>
     </ul>

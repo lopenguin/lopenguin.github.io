@@ -34,7 +34,7 @@ img {
 }
 
 a {
-    color: #444;
+    color: #b31919;
 }
 
 hr {
@@ -63,6 +63,11 @@ li {
     content: "";
     display: table;
     clear: both;
+}
+
+.col-gen {
+    float: left;
+    padding: 0 10px;
 }
 /* END Columns */
 
