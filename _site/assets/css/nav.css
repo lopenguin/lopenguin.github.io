@@ -22,7 +22,7 @@
 }
 
 ul.navbar li {
-    float: left;
+    float: right;
     display: block;
     padding: 8px;
 }

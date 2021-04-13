@@ -6,7 +6,7 @@
         <div class="header_right">
             <ul class="navbar">
                 {% for item in site.data.nav %}
-                    <li><a href="{{ item.link }}" {% if page.url == item.link %}class="active"{% endif %} class="heading">{{ item.name }}</a></li>
+                    <li><a href="{{ item.short-link }}" {% if page.url == item.link %}class="active"{% endif %} class="heading">{{ item.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>

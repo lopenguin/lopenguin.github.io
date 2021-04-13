@@ -1,8 +1,11 @@
 - name: About
   link: /
+  short-link: /
 
 - name: Research
-  link: /research
+  link: /research.html
+  short-link: /research
 
 - name: Projects and Fun
-  link: /random
+  link: /random.html
+  short-link: /random
