@@ -48,26 +48,28 @@ li {
 }
 
 /* Columns */
-.col_left_home {
-    float: left;
-    width: 30%;
-    padding: 0 10px;
-}
-.col_right_home {
-    float: left;
-    width: 55%;
-    padding: 0 10px;
-}
+@media only screen and (min-width: 630px) {
+    .col_left_home {
+        float: left;
+        width: 30%;
+        padding: 0 10px;
+    }
+    .col_right_home {
+        float: left;
+        width: 55%;
+        padding: 0 10px;
+    }
 
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
 
-.col-gen {
-    float: left;
-    padding: 0 10px;
+    .col-gen {
+        float: left;
+        padding: 0 10px;
+    }
 }
 /* END Columns */
 
