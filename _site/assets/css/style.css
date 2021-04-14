@@ -65,7 +65,8 @@ li {
         display: table;
         clear: both;
     }
-
+/* FIX COL-GEN: turn into set of pre-sized columns */
+/* maybe put columns in own css file */
     .col-gen {
         float: left;
         padding: 0 10px;

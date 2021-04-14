@@ -19,10 +19,10 @@ All of these steps except for the PWM and motors (right/left included) are drive
 
 <h2>Inputs and Subtractor</h2>
 <div class="row">
-    <div class="col-gen" style="width: 50%;">
+    <div class="col-l50">
         <img src="/assets/projects/ee-7/inputs-subtractor.jpg">
     </div>
-    <div class="col-gen" style="width: 46%;">
+    <div class="col-r50">
 
     </div>
     <p>The ultrasonic sensors used (L and R) output a voltage proportional to the intensity of an ultrasonic signal near their resonance frequency. In the first step, large resistors are used to ensure their currents are low (allowing use of op-amp idealities). Then, the left sensor output is sent through an inverting op-amp, turning its voltage negative.</p>
@@ -36,10 +36,10 @@ All of these steps except for the PWM and motors (right/left included) are drive
 
 <h2>Offset</h2>
 <div class="row">
-    <div class="col-gen" style="width: 30%;">
+    <div class="col-l30">
         <img src="/assets/projects/ee-7/first-offset.jpg">
     </div>
-    <div class="col-gen" style="width: 66%;">
+    <div class="col-r70">
         <p>Now we have a signal that changes based on the location of the ultrasonic pulse, but where is 0? That's what the offset is for. Using an oscilloscope we carefully tuned the potentiometer to make the signal 0 when the ultrasonic pulse was right in front of the car. This way a negative signal means turn right, and a positive signal means turn left! This part also has a fixed gain of 0.1.</p>
         <p>The next part is where the two control mechanisms diverge. Due to time constraints we were only able to tune the bang-bang version, so I will go into that now.</p>
     </div>
@@ -47,12 +47,12 @@ All of these steps except for the PWM and motors (right/left included) are drive
 
 <h2>Bang-bang signal</h2>
 <div class="row">
-    <div class="col-gen" style="width: 66%;">
+    <div class="col-l70">
         <p>Once that offset signal makes its way to the bang-bang part of the circuit, it splits into two paths. The unmodified signal goes to path (5), where it sends a TIP 112 into saturation and triggers the left motor. The other path is inverted and sent to a TIP 112 to trigger the right motor.</p>
         <p>If the voltage at (3) is negative, the voltage at (5) is also negative and the left motor does not turn on. The voltage at (4), however, is inverted to become positive, triggering the right motor. In the opposite case, a positive voltage at (3) means a positive voltage at (5) that triggers the left motor, but a negative voltage at (4) that does not trigger the right motor.</p>
         <p>The gains were tuned to push the TIP112 into saturation at a small voltage difference between the left and right ultrasonic sensors.</p>
     </div>
-    <div class="col-gen" style="width: 30%;">
+    <div class="col-r30">
         <img src="/assets/projects/ee-7/end_bang-bang.jpg">
     </div>
 </div>
@@ -60,10 +60,10 @@ All of these steps except for the PWM and motors (right/left included) are drive
 
 <h2>PWM: Integrator and offset</h2>
 <div class="row">
-    <div class="col-gen" style="width: 30%">
+    <div class="col-l30">
         <img src="/assets/projects/ee-7/integrator-pwm.jpg">
     </div>
-    <div class="col-gen" style="width:66%">
+    <div class="col-r70">
         <p>This is the PI part of the the PI control. The offset difference between the two ultrasonic sensors is the signal coming in. The integrator op-amp integrates that difference and multiplies it by a constant (<math>-1/(R9&middot;C1)</math>), producing both the proportional and integral parts of the control. That output could feed directly into the pulse generator, but we included one additional offset to make sure the car traveled at about walking speed.</p>
         <p>From (1), the signal traveled to CVOLT of our 50 Hz pulse generator. The pulse generator converted the analog signal into a digital one (PWM). This PWM signal then traveled to (2).</p>
         <center><p>(1): analog&rarr;pulse generator&rarr;(2): digital PWM</p></center>
@@ -73,12 +73,12 @@ All of these steps except for the PWM and motors (right/left included) are drive
 
 <h2>The Final Step</h2>
 <div class="row">
-    <div class="col-gen" style="width:56%">
+    <div class="col-l60">
         <p>The subtracted, offset, integrated, re-offset, and PWM-ized signal enters at (2) and splits into two for each of the motors. The top path is the left motor, which is unmodified except for a large resistor to keep current low and put the TIP112 into saturation.</p>
         <p>The lower path, to the right motor, has a similar resistor and an additional op-amp. However, this op-amp takes 9V and 0V, so it inverts the signal about the <math>V=4.5 V</math> line. If a 90% ON PWM signal enters through 2, the left motor is given 90% power and the right motor is given 10% power. When the signal is 50% ON, both motors are given 50% power.</p>
         <p>Once the signal, whether it is bang-bang or PWM, reaches the TIP112, it puts it in saturation and current flows through the motor while the signal is HIGH (ON). The motor is powered with a separate supply and has a small flyback diode across it to safeguard against any inductive spikes from the motor.</p>
     </div>
-    <div class="col-gen" style="width:40%">
+    <div class="col-r40">
         <img src="/assets/projects/ee-7/end_all.jpg">
     </div>
 </div>

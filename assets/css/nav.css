@@ -14,11 +14,21 @@
     width: auto;
 }
 
-.navbar {
-    list-style-type: none;
-    margin: 0;
-    padding: 25px 0 15px 0;
-    float: right;
+@media only screen and (min-width: 630px) {
+    .navbar {
+        list-style-type: none;
+        margin: 0;
+        padding: 25px 0 15px 0;
+        float: right;
+    }
+}
+@media only screen and (max-width: 630px) {
+    .navbar {
+        list-style-type: none;
+        margin: 0;
+        padding: 25px 0 15px 0;
+        float: left;
+    }
 }
 
 ul.navbar li {
