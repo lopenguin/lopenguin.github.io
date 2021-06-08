@@ -22,12 +22,12 @@
 
 .col-l50 {
     float: left;
-    width: 50%;
+    width: 49%;
     padding-right: 10px
 }
 .col-r50 {
     float: right;
-    width: 49.9%;
+    width: 49%;
 }
 
 .col-l30 {

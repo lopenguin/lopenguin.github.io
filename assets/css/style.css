@@ -17,6 +17,11 @@ footer {
     font-size: 16px;
 }
 
+.caption {
+    font-size: 17px;
+    text-align: center;
+}
+
 .top {
     margin-bottom: 0;
 }

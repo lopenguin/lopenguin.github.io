@@ -1,0 +1,9 @@
+I"¥<style>
+img[src*="#thumbnail"] {
+   width:50%;
+}
+</style>
+
+<p><img src="/assets/random_photos/ME14_Transmission.jpg #thumbnail" alt="ME 14 Transmission" />
+test</p>
+:ET
