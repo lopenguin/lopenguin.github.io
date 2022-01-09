@@ -52,7 +52,7 @@
 
 <h2 id=> Radio Controlled Car </h2>
 <div style="margin-bottom: 20px;">
-    <i>Last Updated: 06/08/2021</i>
+    <i>Last Updated: 06/09/2021</i>
 </div>
 <body>
 <h3>Quick Links</h3>
@@ -69,6 +69,9 @@
 </p>
 <p>
     I created a system that uses two-way radio communication between a small two-wheeled car (provided for us earlier in ME 14) and a controller module. The car has a laser-cut wooden chasis that holds three wheels in a typical tricylce formation. The two back wheels are powered by the motor, while a front roller provides stability and allows turning. The car uses a Teensy 4.0 and external radio breakout board (<a href="https://www.adafruit.com/product/3070">link</a>) to maintain communication. The main electronics, which include a forward-facing distance sensor, are powered by a small 1S lithium polymer battery. The Teensy is also connected to two motors that drive the wheels of the robot using a 12 V lithium-ion power supply. The controller, based on an Adafruit Feather 32u4 with 900 MHz radio (<a href="https://www.adafruit.com/product/3076">link</a>), has a joystick that wirelessly controls the motion of the car, a 7-segment display that shows the car's distance sensor readout, and an RGB LED that shows the signal strength (RSSI).
+</p>
+<p>
+    The vast majority of this project ended up being programming. I had my first segmentation fault (a rite of passage in C++ programming, I'm told) using the pointer-based array system for radio communication. Check out the code (<a href="https://github.com/lopenguin/radio-car-demo">github</a>) to see how I transmitted a 32-bit integer in an 8-bit array (binary was my friend) and developed a simple automatic shutoff protocol. The electronics and mechanical side of this project were largely constrained by what I had available. With more time to expand on this project over the summer, I may focus on improving those aspects.
 </p>
 <div class="row">
     <div class="col-l50">
