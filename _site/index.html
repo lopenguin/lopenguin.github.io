@@ -26,7 +26,7 @@
 
 
 <body>
-<header>
+<!-- <header>
     <div class="row">
         <div class="header_left">
             <h1 class="top"><a href="/" class="heading">Lorenzo Shaikewitz</a></h1>
@@ -43,29 +43,86 @@
             </ul>
         </div>
     </div>
-
-    
-        <img src="/assets/img/header_bot.jpg" class="heading_img" alt="Mechatronics Ultrasonic Car">
-    
 </header>
+ -->
 
-
-<h2 id=about> About Me </h2>
+<!-- <h2 id=main> Lorenzo Shaikewitz </h2> -->
+<br>
 <div class="row">
     <div class="col_left_home">
-        <img src="assets/img/Lorenzo_Shaikewitz.jpg">
+        <h2 class="center">Lorenzo Shaikewitz</h2>
+        I am a Caltech senior (class of 2023) studying mechanical engineering with a minor in controls. 
+        I'm interested in how robots interact with people and the spaces we create. 
+        I work in <a href='http://www.bipedalrobotics.com/'>AMBER Lab</a> on the design and control of a soft ankle exoskeleton.
+        <br>
+        <br>
+        For the summer, I am working with <a href='https://dorsa.fyi/'>Prof. Dorsa Sadigh</a> at Stanford using robotic manipulation for assitive feeding.
+        <br><br>
+        <div class="center"><a href="mailto:lorenzo@caltech.edu">email</a>&ensp;/&ensp;CV&ensp;/&ensp;<a href='https://github.com/lopenguin'>github</a></div>
     </div>
     <div class="col_right_home">
-        Hello! I'm Lorenzo Shaikewitz, a Caltech student studying mechanical engineering. I built this site to keep track of my research and personal projects through college. It contains:
-        <ul>
-            <li>Information about some of my recent research</li>
-            <li>Pictures, thoughts, and technical information related to various projects I'm working on</li>
-            <li>Other, random things I thought deserved a spot on a website</li>
-        </ul>
-        Feel free to reach out to me by email: lorenzo AT caltech.edu
-        <!-- Other: featured image + link, then link to subpages. Maybe include a "failures" subpage -->
+        <img id="img_circle" src="assets/img/Lorenzo_Shaikewitz.png">
     </div>
 </div>
+<br><br>
+<h3>Selected Projects</h3>
+
+
+    
+    <div class="row" style="margin-bottom:30px;">
+        <div class="content_col_left">
+            <img src=/assets/projects/me169/mapping_a_box.png>
+        </div>
+        
+        <div class="content_col_right">
+            <div class="post-title">
+                <b><a href="/projects/2022/06/10/Line-Based-Mapping.html" class="post">Line-Based Mapping</a></b> &ensp;// &ensp;June 2022
+            </div>
+
+            For ME 169, a mobile robot project class, I worked on a continuous-space mapping alogorithm using the robot's LiDAR system. Rather than work on a grid, as most SLAM algorithms do, this method stored the measured coordinates of walls as line segments in continuous space. At each time step, we converted the LiDAR point cloud into line segments using a least-squares regression. These measurement lines were combined with previously measured lines to build up a map of a space.
+            
+            <br>
+        </div>
+    </div>
+    
+
+    
+    <div class="row" style="margin-bottom:30px;">
+        <div class="content_col_left">
+            <img src=/assets/projects/me72/me72.jpg>
+        </div>
+        
+        <div class="content_col_right">
+            <div class="post-title">
+                <b><a href="/projects/2022/03/10/MechE-Capstone-Design.html" class="post">MechE Capstone Design</a></b> &ensp;// &ensp;March 2022
+            </div>
+
+            I was part of a team of seven that competed in the <a href="https://mce.caltech.edu/events/me72">37th Annual ME 72 Competition</a> for our capstone design. The competition was about building <a href="https://www.youtube.com/watch?v=mS-L2fpV1Is">sumo robots</a>--together we built one wheeled robot capable of R/C and autonomous sumo flight and one "strand bot" that used a planar linkage inspired by Theo Jansen's <a href="https://www.strandbeest.com/">Strandbeests</a>. I focused on the later bot, which is shown in battle left.
+            
+            <br>
+        </div>
+    </div>
+    
+
+    
+
+    
+    <div class="row" style="margin-bottom:30px;">
+        <div class="content_col_left">
+            <img src=/assets/research/axo/surf-exo.jpg>
+        </div>
+        
+        <div class="content_col_right">
+            <div class="post-title">
+                <b><a href="/projects/2020/10/01/strut-ankle-exoskeleton.html" class="post">Strut Ankle Exoskeleton</a></b> &ensp;// &ensp;October 2020
+            </div>
+
+            My first research experience was working on the design of a strut-based ankle exoskeleton. This concept, similar to <a href="https://jneuroengrehab.biomedcentral.com/articles/10.1186/1743-0003-11-80">this design</a> developed at MIT, was originally going to be manufactured over the summer. I used the summer of quarantine to optimize the device design, learn to make printed circuit boards, and go through basic control simulations.
+            
+            <br>
+        </div>
+    </div>
+    
 
 
 <footer>

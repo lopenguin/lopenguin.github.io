@@ -1,21 +1,44 @@
 ---
 layout: default
-title: "About Me"
-title-id: about
+title: "Lorenzo Shaikewitz"
+title-id: main
 ---
-
+<br>
 <div class="row">
     <div class="col_left_home">
-        <img src="assets/img/Lorenzo_Shaikewitz.jpg">
+        <h2 class="center">Lorenzo Shaikewitz</h2>
+        I am a Caltech senior (class of 2023) studying mechanical engineering with a minor in controls. 
+        I'm interested in how robots interact with people and the spaces we create. 
+        I work in <a href='http://www.bipedalrobotics.com/'>AMBER Lab</a> on the design and control of a soft ankle exoskeleton.
+        <br>
+        <br>
+        For the summer, I am working with <a href='https://dorsa.fyi/'>Prof. Dorsa Sadigh</a> at Stanford using robotic manipulation for assitive feeding.
+        <br><br>
+        <div class="center"><a href="mailto:lorenzo@caltech.edu">email</a>&ensp;/&ensp;CV&ensp;/&ensp;<a href='https://github.com/lopenguin'>github</a></div>
     </div>
     <div class="col_right_home">
-        Hello! I'm Lorenzo Shaikewitz, a Caltech student studying mechanical engineering. I built this site to keep track of my research and personal projects through college. It contains:
-        <ul>
-            <li>Information about some of my recent research</li>
-            <li>Pictures, thoughts, and technical information related to various projects I'm working on</li>
-            <li>Other, random things I thought deserved a spot on a website</li>
-        </ul>
-        Feel free to reach out to me by email: lorenzo AT caltech.edu
-        <!-- Other: featured image + link, then link to subpages. Maybe include a "failures" subpage -->
+        <img id="img_circle" src="assets/img/Lorenzo_Shaikewitz.png">
     </div>
 </div>
+<br><br>
+<h3>Selected Projects</h3>
+
+{% for post in site.posts %}
+    {% if post.categories contains 'projects' %}
+    <div class="row" style="margin-bottom:30px;">
+        <div class="content_col_left">
+            <img src={{post.thumbnail}}>
+        </div>
+        
+        <div class="content_col_right">
+            <div class="post-title">
+                <b><a href="{{post.url}}" class="post">{{post.title}}</a></b> &ensp;// &ensp;{{post.date | date: "%B %Y" }}
+            </div>
+
+            {{ post.description }}
+            
+            <br>
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}

@@ -2,7 +2,7 @@ body {
     margin: 20px auto;
     max-width: 1000px;
     line-height: 1.2;
-    font-size: 18px;
+    font-size: 17px;
     font-family: Helvetica, sans-serif;
     color: #444;
     padding: 0 10px;
@@ -14,11 +14,11 @@ header {
 
 footer {
     margin-top: 20px;
-    font-size: 16px;
+    font-size: 15px;
 }
 
 .caption {
-    font-size: 17px;
+    font-size: 16px;
     text-align: center;
 }
 
@@ -26,20 +26,68 @@ footer {
     margin-bottom: 0;
 }
 
+.post-title {
+    margin-bottom: 5px;
+}
+
 h1, h2, h3 {
     line-height: 1.2;
+    margin-bottom: 20px;
 }
 h1 a {
     text-decoration: none;
 }
 
 img {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 98%;
+    max-height: 98%;
+}
+
+.img_center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin: auto;
+}
+
+#img_circle {
+    border-radius: 9px;
 }
 
 a {
-    color: #b31919;
+    text-decoration: none;
+}
+
+/* unvisited link */
+a:link {
+color: #b31919;
+}
+
+/* visited link */
+a:visited {
+color: rgb(110, 4, 4);
+}
+
+/* mouse over link */
+a:hover {
+color: rgb(204, 85, 16);
+}
+
+/* selected link */
+a:active {
+color: #b31919;
+} 
+
+a.post {
+    text-decoration: none;
+}
+
+a.post:link, a.post:visited {
+    color: black;
+  }
+  
+a.post:hover, a.post:active {
+color: rgb(62, 62, 62);
 }
 
 hr {
@@ -53,31 +101,29 @@ li {
 }
 
 /* Columns */
-@media only screen and (min-width: 630px) {
-    .col_left_home {
-        float: left;
-        width: 30%;
-        padding: 0 10px;
-    }
-    .col_right_home {
-        float: left;
-        width: 55%;
-        padding: 0 10px;
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    [class*="col_"] {
+        width: 96%;
+        text-align: justify;
+        padding: 10px 2%;
     }
 
-    .row:after {
+    .col-gen {
+        width: 96% !important;
+        padding: 10px 2%;
+    }
+
+    hr {
+        width: 90%;
+    }
+
+    row:after {
         content: "";
         display: table;
         clear: both;
     }
-/* FIX COL-GEN: turn into set of pre-sized columns */
-/* maybe put columns in own css file */
-    .col-gen {
-        float: left;
-        padding: 0 10px;
-    }
 }
-/* END Columns */
 
 ul.dashed {
     list-style-type: "- ";
@@ -88,6 +134,14 @@ ul.dashed {
   /* 16:9 aspect ratio */
   padding-top: 56.25%;
   position: relative;
+}
+
+.iframe-bounding-box {
+    position: relative; 
+    padding-bottom: 56.25%; 
+    height: 0; 
+    overflow: hidden; 
+    max-width: 100%; 
 }
 
 .iframe-container iframe {

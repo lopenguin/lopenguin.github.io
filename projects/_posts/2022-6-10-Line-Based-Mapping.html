@@ -1,0 +1,13 @@
+---
+title: Line-Based Mapping
+description: For ME 169, a mobile robot project class, I worked on a continuous-space mapping alogorithm using the robot's LiDAR system. Rather than work on a grid, as most SLAM algorithms do, this method stored the measured coordinates of walls as line segments in continuous space. At each time step, we converted the LiDAR point cloud into line segments using a least-squares regression. These measurement lines were combined with previously measured lines to build up a map of a space.
+layout: post
+short-name: me169
+thumbnail: /assets/projects/me169/mapping_a_box.png
+---
+<h3>Watch the video introduction to Atlas!</h3>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JQNytQPNokQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<h3>Implementation Details</h3>
+Download my ME 169 report <a href="/assets/projects/me169/report.pdf">here</a>. For the full code base, see <a href="https://github.com/lopenguin/mobilerobots">Github</a>. This project was done in collaboration with <a href="https://tylerdnguyen.com/">Tyler Nguyen</a>.
