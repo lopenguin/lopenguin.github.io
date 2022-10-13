@@ -129,10 +129,6 @@ ul.dashed {
     list-style-type: "- ";
 }
 
-.center {
-    text-align: center;
-}
-
 .iframe-container {
   overflow: hidden;
   /* 16:9 aspect ratio */
