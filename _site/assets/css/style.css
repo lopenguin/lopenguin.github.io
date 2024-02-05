@@ -5,6 +5,7 @@ body {
     font-size: 17px;
     /* font-family: Helvetica, sans-serif; */
     font-family: "Palatino Linotype", Times, serif;
+    /* font-family: "Roboto", Arial, sans-serif; */
     color: #272727;
     padding: 0 10px;
 }
@@ -35,11 +36,22 @@ h1, h2, h3 {
     line-height: 1.2;
     margin-bottom: 20px;
 }
+h1 {
+    font-size: 32px;
+}
 h1 a {
     text-decoration: none;
 }
+h1.title {
+    margin-bottom: 5px;
+}
+
 h3 {
     font-size: 22px;
+}
+
+l {
+    font-weight: 300;
 }
 
 img {
