@@ -25,6 +25,26 @@ title-id: main
     </div>
 </div>
 <br><br>
+<h3>Graduate Research</h3>
+{% for post in site.posts %}
+    {% if post.categories contains 'grad' %}
+    <div class="row" style="margin-bottom:30px;">
+        <div class="content_col_left">
+            <img src={{post.thumbnail}}>
+        </div>
+        
+        <div class="content_col_right">
+            <div class="post-title">
+                <b><a href="{{post.url}}" class="post">{{post.title}}</a></b> &ensp;// &ensp;{{post.date | date: "%B %Y" }}
+            </div>
+
+            {{ post.description }}
+            
+            <br>
+        </div>
+    </div>
+    {% endif %}
+{% endfor %}
 <h3>Undergraduate Work</h3>
 
 {% for post in site.posts %}
