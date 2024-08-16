@@ -23,10 +23,19 @@ In the limit as $\lambda\rightarrow\infty$, $x = y = (a+b)/2$. It is now clear t
 What's going on here? Can we move terms between the objective and constraint set through weights in general? The nonconvexity of problems with convex quadratic *equality* constraints suggests the answer is no, that limit arguments can only take you so far. To start an answer it helps to consider places where this objective trick is *almost* used: relaxations and dual problems, which often move the constraints into the objective.
 
 ## Relaxations and Duals
-TODO: Lagrangian relaxation.
+The standard [Lagrangian relaxation](https://en.wikipedia.org/wiki/Lagrangian_relaxation) 
 
 
+TODO: Lagrangian relaxation, stationarity KKT, dual problem
 
+
+## A Potential Problem: Inequality Constraints
+
+## Solving Problems with Quadratic Equality Constraints
+Consider the following quadratically constrained linear program:
+$$
+\argmin_{\mathbf{x}\in\mathbb{R}^n}\: \mathbf{A}\mathbf{x} 
+$$
 
 
 ## Generalizing
