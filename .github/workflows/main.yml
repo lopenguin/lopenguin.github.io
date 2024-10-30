@@ -2,7 +2,7 @@ name: arxiv
 
 on:
   schedule:
-    - cron: "15 12 * * *"
+    - cron: "00 13 * * *"
     # - cron: "30 9 * * *"    #runs at 9:30 UTC everyday
 
 jobs:
