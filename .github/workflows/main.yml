@@ -2,7 +2,7 @@ name: arxiv
 
 on:
   schedule:
-    - cron: "40 11 * * *"
+    - cron: "10 12 * * *"
     # - cron: "30 9 * * *"    #runs at 9:30 UTC everyday
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
       - name: checkout repo content
         uses: actions/checkout@v4 # checkout the repository content to github runner.
       - name: setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.9 #install the python needed
       - name: Install dependencies
@@ -23,3 +23,15 @@ jobs:
       - name: execute py script
         run: |
           python experimental/arxivfeed.py
+      - name: commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git diff-index --quiet HEAD || (git commit -a -m "updated arxiv" --allow-empty)
+          
+      - name: push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main 
