@@ -2,7 +2,7 @@ name: arxiv
 
 on:
   schedule:
-    - cron: "10 12 * * *"
+    - cron: "15 12 * * *"
     # - cron: "30 9 * * *"    #runs at 9:30 UTC everyday
 
 jobs:
@@ -33,5 +33,5 @@ jobs:
       - name: push changes
         uses: ad-m/github-push-action@master
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.ACCESS_TOKEN }}
           branch: main 
