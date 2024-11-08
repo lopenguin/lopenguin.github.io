@@ -15,6 +15,7 @@ MAX_RESULTS = 500
 AUTHORS = ['Lorenzo Shaikewitz', 'Aaron Ray', 'David M. Rosen', 'Timothy D. Barfoot', 'Heng Yang', 'Luca Carlone']
 SUBJECTS = ["cs.RO", "cs.LG", "math.OC", "math.ST"]
 KEYWORDS = ["semidefinite", "perception", "anomaly", "aerial"]
+html_file = "experimental/myarxiv.html"
 
 url_base = "http://export.arxiv.org/api/query?search_query="
 url_addition = ""
@@ -159,7 +160,7 @@ prelims = """<head><link rel="stylesheet" href="arxiv.css"></head>
 closings = "</dl></div></div></div>"
 
 # save to one html file
-with open("experimental/myarxiv.html", "w", encoding="utf-8") as file1:
+with open(html_file, "w", encoding="utf-8") as file1:
     # Writing data to a file
     file1.writelines(prelims)
     file1.writelines(html_entries)
