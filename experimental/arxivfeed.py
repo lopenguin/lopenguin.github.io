@@ -12,7 +12,7 @@ MAX_RESULTS = 500
 # searches through all subjects in SUBJECTS for:
 # 1) any papers by authors in AUTHORS
 # 2) any papers with titles containing keywords in KEYWORDS
-AUTHORS = ['Lorenzo Shaikewitz', 'Aaron Ray', 'David M. Rosen', 'Timothy D. Barfoot', 'Heng Yang', 'Luca Carlone', 'Aaron D. Ames']
+AUTHORS = ['Lorenzo Shaikewitz', 'Aaron Ray', 'David M. Rosen', 'Timothy D. Barfoot', 'Heng Yang', 'Luca Carlone', 'Aaron D. Ames', 'Bowen Wen', 'Frederike Dumbgen', 'Jeannette Bohg', 'Maegan Tucker']
 SUBJECTS = ["cs.RO", "cs.LG", "math.OC", "math.ST"]
 KEYWORDS = ["semidefinite", "perception", "anomaly", "aerial", "SLAM"]
 html_file = "experimental/myarxiv.html"
