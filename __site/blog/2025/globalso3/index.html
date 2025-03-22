@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+  
+  
+  <!-- <link rel="icon" href="/assets/favicon.ico"> -->
+  <link rel="stylesheet" href="/css/lorenzo.css">
+  <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
+   <title>Global Solutions over SO(3)</title>  
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="franklin-content" style="margin-top: 1.5em;">
+    <a href="/""><b>(home)</b></a>
+</div>
+
+<!-- Content appended here --><div class="franklin-content">
+<h1 id="global_solutions_to_non-convex_problems_so3"><a href="#global_solutions_to_non-convex_problems_so3" class="header-anchor">Global Solutions to Non-Convex Problems: SO&#40;3&#41;</a></h1>
+<p><strong>Teaser.</strong> Rotations are an inescapable challenge in robotics. In perception, they are often the only source of non-convexity in an otherwise benign quadratic program. In spite of this, many problems involving rotations can be solved to <em>global</em> optimality even when NP-hard in general. Examples include pose graph optimization <span class="bibref">(<a href="#sesync">Rosen (2016)</a>)</span>, <a href="https://arxiv.org/abs/2104.08383">category-level pose estimation</a> and <a href="https://arxiv.org/abs/2406.16837">tracking</a>, and <a href="https://arxiv.org/abs/2308.12418">state estimation</a>, among others. I assemble here the various approaches of achieving global optimality with the aim of exposing gaps in understanding and technique.</p>
+<p>&#40;TODO: SET UP BIBTEX&#41;</p>
+<h2 id="some_background_on_so3"><a href="#some_background_on_so3" class="header-anchor">Some Background on SO&#40;3&#41;</a></h2>
+<p>The special orthogonal group, denoted SO&#40;3&#41;, is a manifold composed of orthogonal matricies with determinant \(+1\). It is a special case of the orthogonal group O&#40;3&#41;, which includes rotations and reflections.</p>
+<p>One common relaxation is to drop the determinant constraints &#40;in 3D, these are the cross product constraints&#41;. Once reason this works is because the O&#40;3&#41; manifold is composed of two disjoint sets, distinguished by their determinant. </p>
+<p>&#40;TODO: explain this. Starting point is SE-Sync. Make this a collapsable section.&#41;</p>
+<p>characterized by \(12\) quadratic equality constraints.</p>
+<h2 id="the_q-method_point_cloud_registration_and_aruns_method"><a href="#the_q-method_point_cloud_registration_and_aruns_method" class="header-anchor">The Q-Method, Point Cloud Registration, and Arun&#39;s Method</a></h2>
+<h2 id="qcqps_and_shors_relaxation"><a href="#qcqps_and_shors_relaxation" class="header-anchor">QCQPs and Shor&#39;s Relaxation</a></h2>
+<p><em>Wait... its all the Lagrangian? Always has been</em></p>
+<h2 id="manopt_and_certifying_local_solvers"><a href="#manopt_and_certifying_local_solvers" class="header-anchor">Manopt and Certifying Local Solvers</a></h2>
+<h2 id="off_the_deep_end_momentsos_hierarchy"><a href="#off_the_deep_end_momentsos_hierarchy" class="header-anchor">Off the Deep End: Moment/SOS Hierarchy</a></h2>
+<h2 id="wild_ideas_that_probably_will_not_work"><a href="#wild_ideas_that_probably_will_not_work" class="header-anchor">Wild Ideas &#40;that probably will not work&#41;</a></h2>
+<h2 id="open_questions"><a href="#open_questions" class="header-anchor">Open Questions</a></h2>
+<h2 id="references"><a href="#references" class="header-anchor">References</a></h2>
+<p><strong>Textbooks</strong></p>
+<p><strong>Papers</strong></p>
+<ul>
+<li><p><a id="sesync" class="anchor"></a> Rosen, Carlone, Bandeira, and Leonard,  <a href="https://arxiv.org/abs/1612.07386">SE-Sync: A Certifiably Correct Algorithm for Synchronization over the Special Euclidean Group</a>, 2016.</p>
+</li>
+<li><p><a id="sesync" class="anchor"></a> Rosen, Carlone, Bandeira, and Leonard,  <a href="https://arxiv.org/abs/1612.07386">SE-Sync: A Certifiably Correct Algorithm for Synchronization over the Special Euclidean Group</a>, 2016.</p>
+</li>
+</ul>
+<footer>
+    <a href="https://franklinjl.org/">
+    <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
+    </a>
+
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: March 01, 2025.
+    <br>
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</footer>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/contrib/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>
