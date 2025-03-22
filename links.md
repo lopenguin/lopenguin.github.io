@@ -1,5 +1,5 @@
 +++
-title = "Lorenzo's Links'"
+title = "Lorenzo's Links"
 +++
 ~~~
 <h1>Lorenzo's Links</h1>
