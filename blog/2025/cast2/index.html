@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+   <link rel="stylesheet" href="/libs/highlight/styles/github.min.css">
+   
+   <link rel="stylesheet" href="/libs/jsx/jsxgraph.css">
+<script src="/libs/jsx/jsxgraphcore.js"></script> 
+  <!-- <link rel="icon" href="/assets/favicon.ico"> -->
+  <link rel="stylesheet" href="/css/lorenzo.css">
+  <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
+   <title>Extending CAST</title>  
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="franklin-content" style="margin-top: 1.5em;">
+    <a href="/""><b>(home)</b></a>
+</div>
+
+<!-- Content appended here --><div class="franklin-content">
+<h1 id="revisiting_cast_world-frame_motion_model"><a href="#revisiting_cast_world-frame_motion_model" class="header-anchor">Revisiting CAST: World-Frame Motion Model</a></h1>
+<p>Last year I published my first paper with SPARK lab, proposing a Certifiably optimal Algorithm for object Shape estimation and pose Tracking over time &#40;CAST&#41;. The tracking problem is a fundamentally non-convex optimization problem due to the presence of rotations. Despite this, we showed that reformulating the problem as a quadratically-constrained quadratic program led to a tight convex relaxation in many real-world scenarios. It&#39;s part of a line of research that shows many NP-hard problems are often polynomial time in common robotics applications.</p>
+<p>The post revists a key part of CAST: the constant-twist motion model for between-frame motion. I do not go into great detail on the algorithm or relaxation here; please refer to the paper:</p>
+<p>A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking <date>(Oct 2024)</date><br>
+&emsp;<i style="font-weight: 300;">Lorenzo Shaikewitz, Samuel Ubellacker, and Luca Carlone</i><br>
+&emsp;<a href=https://ieeexplore.ieee.org/document/10756720>RA-L</a>&ensp;/&ensp;<a href=https://arxiv.org/abs/2406.16837>arXiv</a>&ensp;/&ensp;<a href=https://github.com/MIT-SPARK/certifiable_tracking>code</a>&ensp;/&ensp;<a href=https://youtu.be/eTIlVD9pDtc?si=FfQ1spGXXVddWQFB>video</a>&ensp;/&ensp;<a href="/papers/2024/certifiable-tracking#bibtex">bibTeX</a>
+</p>
+<h2 id="part_1_the_motion_model"><a href="#part_1_the_motion_model" class="header-anchor">Part 1: The Motion Model</a></h2>
+<p>A key idea in object tracking is to enforce physically plausable object motion across frames. We impose a motion model, which essentially enforces continuity of motion &#40;and perhaps biases that motion from knowledge of the object dynamics&#41;. For example, car tracking algorithms often use a <em>constant velocity and turn rate</em> model. Even more common is just constant velocity or constant acceleration.</p>
+<p>CAST uses a <em>constant-twist</em> motion model. This keeps the twist vector &#40;body frame velocity and rotation rate&#41; constant across frames. Visually, it models a spiral motion:</p>
+<p> <img src="/assets/blog/2025/cast2/code/output/cast-bodyframe.svg" alt=""></p>
+<p>We really use a <em>noisy</em> version of this model: velocity \(v\) is constant up to random Gaussian noise \(\epsilon\sim\mathcal{N}(0,\Sigma)\), and rotation rate \(\Omega\) is constant up to random <a href="https://vnav.mit.edu/material/18-19-OptimizationOnManifold-notes.pdf">Langevin noise</a> \(R_\epsilon\sim\mathcal{L}(\kappa)\). Mathematically, this is pretty simple:</p>
+<a id="eqvelnoise" class="anchor"></a>\[ v_{t+1} = v_t + \epsilon_v, \quad \Omega_{t+1} = \Omega_t R_\epsilon 
+
+\]
+<p>The &quot;constant-twist&quot; part refers to updating rotations \(R\) and positions \(p\) in the body frame:</p>
+<a id="eqtwist" class="anchor"></a>\[ p_{t+1} = p_t + R_t v_t,\quad R_{t+1} = R_t\cdot \Omega_t 
+
+\]
+<h3 id="constant_world-frame_velocity"><a href="#constant_world-frame_velocity" class="header-anchor">Constant World-Frame Velocity</a></h3>
+<p>The constant-twist motion model <span class="eqref">(<a href="#eqtwist">2</a>)</span>  <em>works</em>, and that alone is an interesting theoretical contribution to the space of certifially optimal algorithms. However, the bilinear constraints \(R_t v_t\) are inconvenient; they prevent marginalizing out position and velocity in terms of rotation and reducing the size of the optimization problem.</p>
+<p>As we will see, the constant world-frame velocity model does not have this issue, significantly speeding up computation. At face, the world-frame velocity model seems like an excessive simpliciation. It models straight line motion of a spinning object:</p>
+<p> <img src="/assets/blog/2025/cast2/code/output/cast-worldframe.svg" alt=""></p>
+<p>There aren&#39;t a lot of objects that move this way–most are constrained to a plane &#40;the ground&#41; or rotate their velocity with their orientation. However, we can add noise as in <span class="eqref">(<a href="#eqvelnoise">1</a>)</span> which essentally represents general continuous motion:</p>
+<script>function val(x){return x.Value();};function valx(p){return p.X();};function valy(p){return p.Y();};function abs(x){return Math.abs(x);};function acos(x){return Math.acos(x);};function acosh(x){return Math.acosh(x);};function asin(x){return Math.asin(x);};function asinh(x){return Math.asinh(x);};function atan(x){return Math.atan(x);};function atanh(x){return Math.atanh(x);};function ceil(x){return Math.ceil(x);};function cos(x){return Math.cos(x);};function cosh(x){return Math.cosh(x);};function exp(x){return Math.exp(x);};function expm1(x){return Math.expm1(x);};function floor(x){return Math.floor(x);};function hypot(x){return Math.hypot(x);};function log(x){return Math.log(x);};function log1p(x){return Math.log1p(x);};function log10(x){return Math.log10(x);};function log2(x){return Math.log2(x);};function max(x){return Math.max(x);};function min(x){return Math.min(x);};function round(x){return Math.round(x);};function sign(x){return Math.sign(x);};function sin(x){return Math.sin(x);};function sinh(x){return Math.sinh(x);};function sqrt(x){return Math.sqrt(x);};function tan(x){return Math.tan(x);};function tanh(x){return Math.tanh(x);};function trunc(x){return Math.trunc(x);};function rand(){return Math.random();};const π=Math.PI;const ℯ=Math.E;const pi=Math.PI;</script> <div id="b2" class="jxgbox" style="width:300px; height:300px;"></div>
+<script>(function(){var b2=JXG.JSXGraph.initBoard("b2",{"boundingbox":[-0.2,1.0,2.0,-0.2],"axis":false,"showcopyright":false,"shownavigation":false});var v=b2.create('slider', [[0.3,-0.1],[1.3,-0.1],[0.0,0.0,0.2]], {"name":"σ"});function f(t){return 0};b2.create('functiongraph', [function(t){return f(t);}, 0, 2.0], {"dash":2});b2.create('point', [0, 0], {"withlabel":false});function p1(){return (val(v)*1.239)};b2.create('point', [0.25, function(t){return p1(t);}], {"withlabel":false});function p2(){return (p1()+(val(v)*0.634))};b2.create('point', [0.5, function(t){return p2(t);}], {"withlabel":false});function p3(){return (p2()+(val(v)*1.002))};b2.create('point', [0.75, function(t){return p3(t);}], {"withlabel":false});function p4(){return (p3()+(val(v)*-0.015))};b2.create('point', [1.0, function(t){return p4(t);}], {"withlabel":false});function p5(){return (p4()+(val(v)*-0.296))};b2.create('point', [1.25, function(t){return p5(t);}], {"withlabel":false});function p6(){return (p5()+(val(v)*-1.387))};b2.create('point', [1.5, function(t){return p6(t);}], {"withlabel":false});function p7(){return (p6()+(val(v)*3.203))};b2.create('point', [1.75, function(t){return p7(t);}], {"withlabel":false});})();</script>
+<p>For short time frames, this should do the job of enforcing continuous motion.</p>
+<h2 id="part_2_marginalizing_postion_velocity"><a href="#part_2_marginalizing_postion_velocity" class="header-anchor">Part 2: Marginalizing Postion &amp; Velocity</a></h2>
+<p>The constant world-frame velocity motion model is clearly less accurate, but it allows marginalizing out position and velocity. In short, the problem is convex holding rotations constant; the first order conditions describe the optimal \(p\) and \(v\) given \(R\).</p>
+<p>Let&#39;s work through a simpler version of the problem, omitting the shape vector and angular velocity terms. This is for ease of presentation; it does not fundamentally change the algebra.</p>
+\[
+\min_{\substack{R_t\in\mathrm{SO}(3)\\s_t, v_t\in\mathbb{R}^3}}
+\sum_{t=1}^T \|R_t y_t - s_t\|^2 + 
+\sum_{t=1}^{T-1} \|v_{t+1} - v_t\|^2\\
+\mathrm{s.t.\:} s_{t+1} = s_t + v_t,\:t=1,...,T-1
+\]
+<p>The constant world-frame velocity model is the constraint \(s_{t+1} = s_t + v_t\). Crucially, the position \(s_t\) is only a function of \(v\), not any rotations. This optimization problem is convex in \(v_t\) and \(s_t\) holding \(R_t\) constant, so we can solve it via first-order conditions. The Lagrangian is:</p>
+\[
+L(s, v, \lambda) = \sum_{t=1}^T \|R_t y_t - s_t\|^2 + 
+\sum_{t=1}^{T-1} \|v_{t+1} - v_t\|^2 + \lambda_t(s_{t+1}-s_t-v_t)
+\]
+<p>Taking the derivative, we have the following equations:</p>
+\[
+0=\nabla_{s_t}L = 2s_t - 2R_ty_t + (\lambda_{t-1} - \lambda_t)
+\]
+\[
+0 = \nabla_{v_t}L = 4v_t - 2v_{t+1} - 2v_{t-1} - \lambda_t
+\]
+<p>Together with the equality constraint \(s_{t+1} = s_t + v_t\), we have a linear system of equations:</p>
+\[
+A
+\begin{bmatrix}
+s \\ v \\ \lambda
+\end{bmatrix}
+= b(R)
+\]
+<p>where \(A\) is composed of the &#40;constant&#41; coefficients of \(s,v,\lambda\) in the first order conditions and equality constraint, while \(b\) is the terms which do not depend on \(s,v,\lambda\). In particular, \(A\) is independent of \(R\) and \(b(R)\) is a linear function of \(R\). Thus, inverting \(A\) allows solving for \(s\) and \(v\) in closed form in terms of \(R\). Plugging this in to the objective does not change the QCQP form. It only reduces the decision space, significantly speeding up computation.</p>
+<h2 id="part_3_speed"><a href="#part_3_speed" class="header-anchor">Part 3: Speed</a></h2>
+<p>The major advantage of the world-frame velocity model is pure speed. Empirically, it runs around 5 times faster than the body-frame velocity model, depending on the number of times steps \(T\) we consider. For short time steps, the performance of the more realistic body-frame velocity model is almost indistinguishable from the world-frame velocity model. I show this on the real-world drone tracking data from our paper:</p>
+<p><img src="/assets/blog/cast/world_err_drone.png" alt="drone results" /></p>
+<p>It seems like we can have our cake and eat it too: we can use a simpler model and marginalize position and velocity for significant speed improvements without sacrificing accuracy. As long as we run tracking fast enough, any first-order approximation will be reasonable and the fixed-lag will take care of large, long-term deviations from the motion model. </p>
+<p>I don&#39;t want to completely dismiss the body-frame model. A unique part of working with convex relaxations is the art of making an informed guess about whether a relaxation is tight. From that perspective, a body-frame model is interesting because it remains tight despite the bilinear motion model. Further, we expect the body-frame model to be much more accurate as the time step between samples grows.</p>
+<p><em>I want to thank <a href="https://www.ri.cmu.edu/ri-faculty/zachary-manchester/">Prof. Zac Manchester</a> for suggesting we take a closer look at the world-frame model.</em></p>
+<h2 id="code_for_visuals"><a href="#code_for_visuals" class="header-anchor">Code for Visuals</a></h2>
+<h3 id="constant-twist_body-frame_velocity_motion"><a href="#constant-twist_body-frame_velocity_motion" class="header-anchor">Constant-Twist &#40;Body-Frame Velocity&#41; Motion</a></h3>
+<pre><code class="language-julia"># spiral
+t &#61; LinRange&#40;0,6*π,1000&#41;
+Plots.plot3d&#40;cos.&#40;t&#41;, sin.&#40;t&#41;, t,label&#61;&quot;trajectory&quot;&#41;
+
+t2 &#61; LinRange&#40;0.5,5*π&#43;2, 8&#41;
+Plots.scatter3d&#33;&#40;cos.&#40;t2&#41;, sin.&#40;t2&#41;, t2,label&#61;&quot;samples&quot;&#41;
+Plots.quiver&#33;&#40;cos.&#40;t2&#41;,sin.&#40;t2&#41;,t2, quiver&#61;&#40;-0.5*sin.&#40;t2&#41;, 0.5*cos.&#40;t2&#41;, 0.5*ones&#40;8&#41;&#41;, color&#61;:red&#41;
+Plots.quiver&#33;&#40;cos.&#40;t2&#41;,sin.&#40;t2&#41;,t2, quiver&#61;&#40;0.5*cos.&#40;t2&#41;, 0.5*sin.&#40;t2&#41;, -0.5*zeros&#40;8&#41;&#41;, color&#61;:green&#41;
+# Plots.quiver&#33;&#40;cos.&#40;t2&#41;,sin.&#40;t2&#41;,t2, quiver&#61;&#40;-0.5*sin.&#40;t2&#41;, 0.5*cos.&#40;t2&#41;, -0.5*ones&#40;8&#41;&#41;, color&#61;:blue&#41;</code></pre>
+<h3 id="world-frame_velocity_motion"><a href="#world-frame_velocity_motion" class="header-anchor">World-Frame Velocity Motion</a></h3>
+<pre><code class="language-julia"># straight line
+t &#61; LinRange&#40;0,6*π,1000&#41;
+Plots.plot3d&#40;0 .*t, 0 .*t, t, label&#61;&quot;trajectory&quot;, ylim&#61;&#91;-0.5,0.5&#93;, xlim&#61;&#91;-0.5,0.5&#93;&#41;
+
+t2 &#61; LinRange&#40;0.5,5*π&#43;2, 8&#41;
+Plots.scatter3d&#33;&#40;0 .*t2, 0 .*t2, t2,label&#61;&quot;samples&quot;&#41;
+scale &#61; 0.15
+Plots.quiver&#33;&#40;0*t,0*t,t2, quiver&#61;&#40;-scale*sin.&#40;t2&#41;, scale*ones&#40;8&#41;, scale*cos.&#40;t2&#41;&#41;, color&#61;:red&#41;
+Plots.quiver&#33;&#40;0*t,0*t,t2, quiver&#61;&#40; scale*cos.&#40;t2&#41;, -scale*zeros&#40;8&#41;, scale*sin.&#40;t2&#41;&#41;, color&#61;:green&#41;
+# Plots.quiver&#33;&#40;0*t,0*t,t2, quiver&#61;&#40;scale*sin.&#40;t2&#41;, scale*ones&#40;8&#41;, -scale*cos.&#40;t2&#41;&#41;, color&#61;:blue&#41;</code></pre>
+
+<footer>
+    <a href="https://franklinjl.org/">
+    <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
+    </a>
+
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: March 22, 2025.
+    <br>
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</footer>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/contrib/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+        <script src="/libs/highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();hljs.configure({tabReplace: '    '});</script>
+
+    
+  </body>
+</html>

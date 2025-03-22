@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  
+  
+  <!-- <link rel="icon" href="/assets/favicon.ico"> -->
+  <link rel="stylesheet" href="/css/lorenzo.css">
+  <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
+   <title>Undergraduate Projects</title>  
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="franklin-content" style="margin-top: 1.5em;">
+    <a href="/""><b>(home)</b></a>
+</div>
+
+<!-- Content appended here --><div class="franklin-content">
+<h1 id="undergraduate_projects_ankle_exoskeleton_piano-playing_robot_line-based_mapping"><a href="#undergraduate_projects_ankle_exoskeleton_piano-playing_robot_line-based_mapping" class="header-anchor">Undergraduate Projects: Ankle Exoskeleton, Piano-Playing Robot, Line-Based Mapping</a></h1>
+<h2 id="ankle_exoskeleton"><a href="#ankle_exoskeleton" class="header-anchor">Ankle Exoskeleton</a></h2>
+
+<div class="row">
+  <div class="container">
+    <img class="right" style="width:30%;" src="/assets/blog/axo/axo.png">
+    <p>
+    I spent the bulk of my undergrad working on the design and control of a soft ankle exoskeleton with Maegan Tucker and Neil Janwani, advised by Aaron Ames. The key idea of the design was to use handed shearing auxetics for actuation. These compliant materials efficiently translated rotational motion (from motors) into linear actuation while remaining compiliant. Treating them as programmable springs, I designed and manufactured a compact ankle exoskeleton and tested it on several human subjects. The work resulted in a patent and made up the bulk of my undergraduate thesis. The thesis is available <a href="/assets/blog/axo/CDS_90_Senior_Thesis.pdf">here</a>.
+    </p>
+    <div style="clear: both"></div>      
+  </div>
+</div>
+
+<h2 id="piano-playing_robot"><a href="#piano-playing_robot" class="header-anchor">Piano-Playing Robot</a></h2>
+
+<div class="row">
+  <div class="container">
+    <img class="left" style="width:30%;" src="/assets/blog/me134/piano.jpg">
+    <p>
+    For ME 134 (Robot Systems) my team built a piano playing robot. We designed a 9 degree of freedom robot with two end effectors capable of playing up to two notes at a time. The emphasis was interactivity: our robot followed the piano if someone moved it around, even pulling it back into a playable region if necessary. It could teach the user to play a song, halt playing when someone got too close, and celebrate with claps and dances when it finished.
+    </p>
+    <div style="text-align: center;">
+        <a href="https://youtu.be/PDfuBd5oUVs?si=LGZmKoJwaKKK2AUB">video</a>
+        &ensp;/&ensp;
+        <a href="https://github.com/CBlagden/me134">code</a>
+        &ensp;/&ensp;
+        <a href="/assets/blog/me134/pianoman_description.zip">ROS description</a>
+    </div>
+    <div style="clear: both"></div>      
+  </div>
+</div>
+
+<h2 id="line-based_mapping"><a href="#line-based_mapping" class="header-anchor">Line-Based Mapping</a></h2>
+
+<div class="row">
+  <div class="container">
+    <img class="right" style="width:30%;" src="/assets/blog/me169/mapping_a_box.png">
+    <p>
+    For ME 169, a mobile robot project class, I worked on a continuous-space mapping alogorithm using the robot's LiDAR system. Rather than work on a grid, as most SLAM algorithms do, this method stored the measured coordinates of walls as line segments in continuous space. At each time step, we converted the LiDAR point cloud into line segments using a least-squares regression. These measurement lines were combined with previously measured lines to build up a map of a space. This project was done in collaboration with <a href=https://tylerdnguyen.com/>Tyler Nguyen</a>.
+    </p>
+    <div style="text-align: center;">
+        <a href="https://youtu.be/JQNytQPNokQ?si=uA7HYHBu3rdnZ9aP">video</a>
+        &ensp;/&ensp;
+        <a href="https://github.com/lopenguin/mobilerobots">code</a>
+        &ensp;/&ensp;
+        <a href="/assets/blog/me169/report.pdf">report</a>
+    </div>
+    <div style="clear: both"></div>      
+  </div>
+</div>
+
+<footer>
+    <a href="https://franklinjl.org/">
+    <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
+    </a>
+
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: March 02, 2025.
+    <br>
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</footer>
+</div><!-- CONTENT ENDS HERE -->
+    
+    
+  </body>
+</html>
