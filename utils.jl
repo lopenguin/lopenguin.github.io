@@ -37,7 +37,7 @@ Displays all tag pages in chronological order with date.
 
 Use with `{{custom_taglist}}` in [_layout/tag.html](./_layout/tag.html).
 """
-function hfun_custom_taglist()::String
+@delay function hfun_custom_taglist()::String
     # retrieve the tag string
     tag = locvar(:fd_tag)
     # recover the relative paths to all pages that have that
@@ -73,7 +73,7 @@ function hfun_custom_taglist()::String
 
         pvd = pagevar(rpath, :date)
         if isnothing(pvd)
-            return Date(Dates.unix2datetime(stat(p * ".md").ctime))
+            pvd = Date(Dates.unix2datetime(stat(rpath * ".md").ctime))
         end
 
         # write some appropriate HTML
@@ -92,7 +92,7 @@ Use with `{{recentblogposts}}`.
 
 TODO: extend to take folder, tag as arguments
 """
-function hfun_recentblogposts(params=nothing)::String
+@delay function hfun_recentblogposts(params=nothing)::String
     folder = "blog"
     tag = "blog"
     if !isnothing(params)
@@ -138,6 +138,9 @@ function hfun_recentblogposts(params=nothing)::String
         l = Franklin.unixify(html)
 
         pvd = pagevar(path, :date)
+        if isnothing(pvd)
+            pvd = Date(Dates.unix2datetime(stat(path * ".md").ctime))
+        end
 
         write(io, """<a href="$l">$t</a> <date>($(Dates.format(pvd, "u d, yyyy")))</date><br>\n""")
         if i >= 4
@@ -154,7 +157,7 @@ end
 
 Find and list all papers with all tags in `params`.
 """
-function hfun_paperswithtags(params)::String
+@delay function hfun_paperswithtags(params)::String
     folder = "papers"
     checktags = params
 
@@ -198,6 +201,9 @@ function hfun_paperswithtags(params)::String
         l = Franklin.unixify(html)
 
         pvd = pagevar(path, :date)
+        if isnothing(pvd)
+            pvd = Date(Dates.unix2datetime(stat(path * ".md").ctime))
+        end
 
         # paper title
         write(io, """$t <date>($(Dates.format(pvd, "u yyyy")))</date><br>\n""")
