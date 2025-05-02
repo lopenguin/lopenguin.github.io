@@ -218,8 +218,11 @@ Find and list all papers with all tags in `params`.
             write(io, "&ensp;/&ensp;")
         end
         # arXiv
-        write(io, """<a href=$(pagevar(path, :arxiv))>arXiv</a>""")
-        write(io, "&ensp;/&ensp;")
+        arxiv = pagevar(path, :arxiv)
+        if !isempty(arxiv)
+            write(io, """<a href=$(arxiv)>arXiv</a>""")
+            write(io, "&ensp;/&ensp;")
+        end
         # code
         code = pagevar(path, :code)
         if !isnothing(code) && !isempty(code)
@@ -234,6 +237,9 @@ Find and list all papers with all tags in `params`.
         end
         # bibtex
         write(io, """<a href="/$(l[1:end-1])#bibtex">bibTeX</a>\n""")
+        if i != length(paths)
+            write(io, "<br>")
+        end
     end
     write(io,"</p>")
     return String(take!(io))

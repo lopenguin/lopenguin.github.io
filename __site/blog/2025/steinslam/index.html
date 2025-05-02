@@ -1,33 +1,16 @@
-<!--
-IMPORTANT NOTE:
-  on tag pages you CANNOT rely on local page variable such as `hasmath`
-  `hascode`, `title` etc as the generation of the tag pages will be triggered
-  by different pages each of which will have defined these variables in
-  a different ways.
-  For tag pages, ALL variables used MUST be
-  - global ones (whatever you might have defined in `config`)
-  - be tag string (`tag`)
-  otherwise you cannot guarantee their content.
-  There is one way to bend this: you can use {{fill varname rpath}} to
-  input the value of the variable `varname` defined at the page corresponding
-  to `rpath`.
-  You can also use `{{ispage tag/blog/*}} ... {{end}}` to have things that
-  depend upon which tag we're on (for instance if you want a specific title).
--->
-
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
   
-   <link rel="stylesheet" href="/libs/highlight/styles/github.min.css">
-   
   
   <!-- <link rel="icon" href="/assets/favicon.ico"> -->
   <link rel="stylesheet" href="/css/lorenzo.css">
   <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
-   <title>Masters Thesis</title>  
+   <title>Stein SLAM</title>  
 
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -52,29 +35,27 @@ IMPORTANT NOTE:
     <a href="/""><b>(home)</b></a>
 </div>
 
-<!-- Content appended here -->
-<body>
-  <div class="franklin-content">
-    
-      <h1>Tag: feeding</h1>
-    
-    
-    <p>
-      <a href="/papers/2023/bitetransfer/">In-Mouth Robotic Bite Transfer with Visual and Haptic Sensing</a> <date>(May 29, 2023)</date><br>
-
-      <a href="/"><b>(back)</b></a>
-    </p>
-
-    <footer>
+<!-- Content appended here --><div class="franklin-content">
+<h1 id="the_james-stein_estimator_and_slam"><a href="#the_james-stein_estimator_and_slam" class="header-anchor">The James-Stein Estimator and SLAM</a></h1>
+<p>TODO: probably want picture here</p>
+<p>The introduction of Stein&#39;s paradox in &#91;TODO: REFERENCE&#93; shocked the field of statistics. The paradox is best illustrated through a thought experiment: </p>
+<h2 id="james-stein"><a href="#james-stein" class="header-anchor">James-Stein</a></h2>
+<footer>
     <a href="https://franklinjl.org/">
     <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
     </a>
 
-    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. 
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: April 03, 2025.
     <br>
     Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
 </footer>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/contrib/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
 
-  </div>
-</body>
+    
+    
+  </body>
 </html>
