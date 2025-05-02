@@ -1,20 +1,3 @@
-<!--
-IMPORTANT NOTE:
-  on tag pages you CANNOT rely on local page variable such as `hasmath`
-  `hascode`, `title` etc as the generation of the tag pages will be triggered
-  by different pages each of which will have defined these variables in
-  a different ways.
-  For tag pages, ALL variables used MUST be
-  - global ones (whatever you might have defined in `config`)
-  - be tag string (`tag`)
-  otherwise you cannot guarantee their content.
-  There is one way to bend this: you can use {{fill varname rpath}} to
-  input the value of the variable `varname` defined at the page corresponding
-  to `rpath`.
-  You can also use `{{ispage tag/blog/*}} ... {{end}}` to have things that
-  depend upon which tag we're on (for instance if you want a specific title).
--->
-
 <!doctype html>
 <html lang="en">
 <head>
@@ -52,29 +35,31 @@ IMPORTANT NOTE:
     <a href="/""><b>(home)</b></a>
 </div>
 
-<!-- Content appended here -->
-<body>
-  <div class="franklin-content">
-    
-      <h1>Tag: feeding</h1>
-    
-    
-    <p>
-      <a href="/papers/2023/bitetransfer/">In-Mouth Robotic Bite Transfer with Visual and Haptic Sensing</a> <date>(May 29, 2023)</date><br>
-
-      <a href="/"><b>(back)</b></a>
-    </p>
-
-    <footer>
+<!-- Content appended here --><div class="franklin-content">
+<h1 id="masters_thesis_optimization_techniques_for_trustworthy_3d_object_understanding"><a href="#masters_thesis_optimization_techniques_for_trustworthy_3d_object_understanding" class="header-anchor">Masters Thesis: Optimization Techniques for Trustworthy 3D Object Understanding</a></h1>
+<p>This page is currently a work in progress. Please check back in late May&#33;</p>
+<h2 id="bibtex"><a href="#bibtex" class="header-anchor">BibTeX</a></h2>
+<pre><code class="language-plaintext">@misc&#123;TODO&#125;</code></pre>
+<h2 id="related_papers"><a href="#related_papers" class="header-anchor">Related Papers</a></h2>
+<p>A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking <date>(Oct 2024)</date><br>
+&emsp;<i style="font-weight: 300;">Lorenzo Shaikewitz, Samuel Ubellacker, and Luca Carlone</i><br>
+&emsp;<a href=https://ieeexplore.ieee.org/document/10756720>RA-L</a>&ensp;/&ensp;<a href=https://arxiv.org/abs/2406.16837>arXiv</a>&ensp;/&ensp;<a href=https://github.com/MIT-SPARK/certifiable_tracking>code</a>&ensp;/&ensp;<a href=https://youtu.be/eTIlVD9pDtc?si=FfQ1spGXXVddWQFB>video</a>&ensp;/&ensp;<a href="/papers/2024/certifiable-tracking#bibtex">bibTeX</a>
+</p>
+<footer>
     <a href="https://franklinjl.org/">
     <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
     </a>
 
-    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. 
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: May 02, 2025.
     <br>
     Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
 </footer>
+</div><!-- CONTENT ENDS HERE -->
+    
+    
+        <script src="/libs/highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();hljs.configure({tabReplace: '    '});</script>
 
-  </div>
-</body>
+    
+  </body>
 </html>
