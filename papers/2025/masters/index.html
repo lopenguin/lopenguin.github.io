@@ -10,7 +10,7 @@
   <!-- <link rel="icon" href="/assets/favicon.ico"> -->
   <link rel="stylesheet" href="/css/lorenzo.css">
   <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
-   <title>Masters Thesis</title>  
+   <title>Master's Thesis</title>  
 
   <!-- Favicon -->
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
@@ -36,10 +36,55 @@
 </div>
 
 <!-- Content appended here --><div class="franklin-content">
-<h1 id="masters_thesis_optimization_techniques_for_trustworthy_3d_object_understanding"><a href="#masters_thesis_optimization_techniques_for_trustworthy_3d_object_understanding" class="header-anchor">Masters Thesis: Optimization Techniques for Trustworthy 3D Object Understanding</a></h1>
-<p>This page is currently a work in progress. Please check back in late May&#33;</p>
+<h1 id="masters_thesis_optimization_techniques_for_trustworthy_3d_object_understanding"><a href="#masters_thesis_optimization_techniques_for_trustworthy_3d_object_understanding" class="header-anchor">Master&#39;s Thesis: Optimization Techniques for Trustworthy 3D Object Understanding</a></h1>
+<p>I am submitting my master&#39;s thesis on Friday, May 16. It&#39;s focused on fundamental algorithms for estimating the position, orientation, and shape of objects. You can download a draft 
+<a target="_blank" href="/assets/blog/masters/LorenzoMastersThesisDRAFT.pdf">here</a>
+  &#40;unfinished&#41;. Here&#39;s a brief outline:</p>
+<ol>
+<li><p><strong>Preliminaries.</strong> A review of the mathematics, including Shor&#39;s relaxation, conformal prediction, and quaternion algebra.</p>
+</li>
+<li><p><strong>Certifiable Object Tracking.</strong> We propose an algorithm to track objects and estimate their shape over multiple observations. It&#39;s globally optimal in the certifiable sense. Compared to the <a href="https://ieeexplore.ieee.org/document/10756720">publication</a>, we add a world-frame motion model which is significantly faster.</p>
+</li>
+<li><p><strong>Conformal Pose Uncertainty.</strong> Pose estimation with statistically valid translation and rotation bounds. We propagate conformal prediction bounds from the measurements &#40;keypoints&#41; to a pose uncertainty set, and efficiently bound the set using an ellipse.</p>
+</li>
+<li><p><strong>Sub-Millisecond Local Pose and Shape Estimates.</strong> We rewrite the first-order optimality conditions as a nonlinear eigenproblem which can be solved in less than a millisecond using self-consistent field iteration. Solutions are local &#40;no certificate&#41;, but can update quickly.</p>
+</li>
+</ol>
+<h2 id="extra_videos"><a href="#extra_videos" class="header-anchor">Extra Videos</a></h2>
+<h3 id="certifiable_tracking"><a href="#certifiable_tracking" class="header-anchor">Certifiable tracking</a></h3>
+
+<iframe width="560" src="https://www.youtube.com/embed/eTIlVD9pDtc?si=R9y1kZ3ghJdxcQEj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="display: block;margin: 0 auto; max-width: 100%; aspect-ratio: 16 / 9;"></iframe>
+
+<h3 id="conformal_uncertainty_sets"><a href="#conformal_uncertainty_sets" class="header-anchor">Conformal uncertainty sets</a></h3>
+<p>A video showing the central pose estimate for the &quot;duck&quot; object:</p>
+
+<video width="640" height=auto controls style="display: block;margin: 0 auto; max-width: 100%;">
+    <source src="/assets/blog/masters/est.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
+<h3 id="self-consistent_field_iterations"><a href="#self-consistent_field_iterations" class="header-anchor">Self-consistent field iterations</a></h3>
+<p>
+<div class="row">
+    <div class="column" style="width: 33.33%; float: left;">
+        <img src="/assets/blog/masters/scf_oneiter.gif" alt="One iteration of SCF">
+    </div>
+    <div class="column" style="width: 33.33%; float: left;">
+        <img src="/assets/blog/masters/scf_onemin.gif" alt="One iteration of SCF">
+    </div>
+    <div class="column" style="width: 33.33%; float: left;">
+        <img src="/assets/blog/masters/scf_twomins.gif" alt="One iteration of SCF">
+    </div>
+</div> 
+ These animations show the trajectory of self-consistent field iteration as stereographic projections of quaternions onto the volume of the unit ball. Left, a single SCF trajectory which quickly converges. Center, an example problem where any initialization leads to the same optima. Right, an example problem where starting at an orange point leads to one minimum, and starting at a green point leads to a distinct minimum. The cross marker shows the ground truth.</p>
+<h2 id="poster"><a href="#poster" class="header-anchor">Poster</a></h2>
+
+<a href="/assets/blog/masters/MastersPoster.png">
+<img src="/assets/blog/masters/MastersPoster.png" alt="Click to zoom in">
+</a>
+
 <h2 id="bibtex"><a href="#bibtex" class="header-anchor">BibTeX</a></h2>
-<pre><code class="language-plaintext">@misc&#123;TODO&#125;</code></pre>
+<pre><code class="language-plaintext">@misc&#123;Coming soon&#33;&#125;</code></pre>
 <h2 id="related_papers"><a href="#related_papers" class="header-anchor">Related Papers</a></h2>
 <p>A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking <date>(Oct 2024)</date><br>
 &emsp;<i style="font-weight: 300;">Lorenzo Shaikewitz, Samuel Ubellacker, and Luca Carlone</i><br>
@@ -50,7 +95,7 @@
     <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
     </a>
 
-    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: May 02, 2025.
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: May 14, 2025.
     <br>
     Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
 </footer>
