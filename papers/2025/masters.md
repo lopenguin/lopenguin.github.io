@@ -35,9 +35,14 @@ I am submitting my master's thesis on Friday, May 16. It's focused on fundamenta
 <iframe width="560" src="https://www.youtube.com/embed/eTIlVD9pDtc?si=R9y1kZ3ghJdxcQEj" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="display: block;margin: 0 auto; max-width: 100%; aspect-ratio: 16 / 9;"></iframe>
 ~~~
 
-### Conformal uncertainty sets
-<!-- Some examples of conformal uncertainty sets: -->
+### Conformalized pose estimates
+Some examples of conformal uncertainty sets (rotational uncertainty for fixed translation):
 
+~~~
+<p>
+<img src="/assets/blog/masters/duck352.png" alt="Example uncertainty sets" style="width:560px;">
+</p>
+~~~
 
 A video showing the central pose estimate for the "duck" object:
 
