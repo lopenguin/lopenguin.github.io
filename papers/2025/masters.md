@@ -12,16 +12,16 @@ code = ""
 video = ""
 authors = "Lorenzo Shaikewitz"
 
-tags = ["rotations", "SDP", "papers"] #, "selected"]
+tags = ["rotations", "SDP", "papers", "selected"]
 +++
 
 # Master's Thesis: Optimization Techniques for Trustworthy 3D Object Understanding
 
-I am submitting my master's thesis on Friday, May 16. It's focused on fundamental algorithms for estimating the position, orientation, and shape of objects. You can download a draft 
+I submitted my master's thesis to the department on Friday, May 16. It's focused on fundamental algorithms for estimating the position, orientation, and shape of objects. When available, you can download a draft 
 ~~~
-<a target="_blank" href="/assets/blog/masters/LorenzoMastersThesisDRAFT.pdf">here</a>
-~~~ 
-(unfinished). Here's a brief outline:
+<a target="_blank" href="/assets/blog/masters/LorenzoMastersThesisDRAFT.pdf">here</a>.
+~~~
+Here's a brief outline:
 
 1. **Preliminaries.** A review of the mathematics, including Shor's relaxation, conformal prediction, and quaternion algebra.
 1. **Certifiable Object Tracking.** We propose an algorithm to track objects and estimate their shape over multiple observations. It's globally optimal in the certifiable sense. Compared to the [publication](https://ieeexplore.ieee.org/document/10756720), we add a world-frame motion model which is significantly faster.
