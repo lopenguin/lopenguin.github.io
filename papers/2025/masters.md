@@ -7,9 +7,9 @@ hasjsx = false
 date = Date(2025, 5, 16)
 arxiv = ""
 venue = "D-Space"
-link = ""
+link = "/papers/2025/masters"
 code = ""
-video = ""
+video = "/papers/2025/masters"
 authors = "Lorenzo Shaikewitz"
 
 tags = ["rotations", "SDP", "papers", "selected"]
