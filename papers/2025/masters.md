@@ -12,7 +12,7 @@ code = ""
 video = "/papers/2025/masters"
 authors = "Lorenzo Shaikewitz"
 
-tags = ["rotations", "SDP", "papers", "selected"]
+tags = ["rotations", "SDP", "papers", "selected", "CASTW", "masters"]
 +++
 
 # Master's Thesis: Optimization Techniques for Trustworthy 3D Object Understanding
@@ -44,7 +44,7 @@ Some examples of conformal uncertainty sets (rotational uncertainty for fixed tr
 </p>
 ~~~
 
-A video showing the central pose estimate for the "duck" object:
+A video showing the central pose estimate for the "duck" object (if the video is broken, try a different browser or download):
 
 ~~~
 <video width="640" height=auto controls style="display: block;margin: 0 auto; max-width: 100%;">
