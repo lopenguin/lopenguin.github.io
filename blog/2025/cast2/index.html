@@ -40,8 +40,11 @@
 <!-- Content appended here --><div class="franklin-content">
 <h1 id="revisiting_cast_world-frame_motion_model"><a href="#revisiting_cast_world-frame_motion_model" class="header-anchor">Revisiting CAST: World-Frame Motion Model</a></h1>
 <p>Last year I published my first paper with SPARK lab, proposing a Certifiably optimal Algorithm for object Shape estimation and pose Tracking over time &#40;CAST&#41;. The tracking problem is a fundamentally non-convex optimization problem due to the presence of rotations. Despite this, we showed that reformulating the problem as a quadratically-constrained quadratic program led to a tight convex relaxation in many real-world scenarios. It&#39;s part of a line of research that shows many NP-hard problems are often polynomial time in common robotics applications.</p>
-<p>The post revists a key part of CAST: the constant-twist motion model for between-frame motion. I do not go into great detail on the algorithm or relaxation here; please refer to the paper:</p>
-<p>A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking <date>(Oct 2024)</date><br>
+<p>The post revists a key part of CAST: the constant-twist motion model for between-frame motion. I do not go into great detail on the algorithm or relaxation here; please refer to the paper. <strong>Edit &#40;June 2025&#41;: CAST-W has been fleshed out in my Master&#39;s thesis, also available below.</strong></p>
+<p>Master's Thesis: Optimization Techniques for Trustworthy 3D Object Understanding <date>(May 2025)</date><br>
+&emsp;<i style="font-weight: 300;">Lorenzo Shaikewitz</i><br>
+&emsp;<a href=/papers/2025/masters>D-Space</a>&ensp;/&ensp;<a href=/papers/2025/masters>video</a>&ensp;/&ensp;<a href="/papers/2025/masters#bibtex">bibTeX</a>
+<br>A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking <date>(Oct 2024)</date><br>
 &emsp;<i style="font-weight: 300;">Lorenzo Shaikewitz, Samuel Ubellacker, and Luca Carlone</i><br>
 &emsp;<a href=https://ieeexplore.ieee.org/document/10756720>RA-L</a>&ensp;/&ensp;<a href=https://arxiv.org/abs/2406.16837>arXiv</a>&ensp;/&ensp;<a href=https://github.com/MIT-SPARK/certifiable_tracking>code</a>&ensp;/&ensp;<a href=https://youtu.be/eTIlVD9pDtc?si=FfQ1spGXXVddWQFB>video</a>&ensp;/&ensp;<a href="/papers/2024/certifiable-tracking#bibtex">bibTeX</a>
 </p>
@@ -129,7 +132,7 @@ Plots.quiver&#33;&#40;0*t,0*t,t2, quiver&#61;&#40; scale*cos.&#40;t2&#41;, -scal
     <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
     </a>
 
-    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: March 22, 2025.
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: June 10, 2025.
     <br>
     Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
 </footer>

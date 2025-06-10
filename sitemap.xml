@@ -2,56 +2,56 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-    <loc>blog/2025/globalso3/index.html</loc>
-    <lastmod>2025-03-01</lastmod>
+    <loc>papers\2023\bitetransfer\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>blog\2025\globalso3\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>blog\2025\undergrad\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
     <loc>index.html</loc>
-    <lastmod>2025-05-16</lastmod>
+    <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>blog/2025/cast2/index.html</loc>
-    <lastmod>2025-03-22</lastmod>
+    <loc>blog\2025\steinslam\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>blog/2025/steinslam/index.html</loc>
-    <lastmod>2025-04-03</lastmod>
+    <loc>papers\2025\masters\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>links/index.html</loc>
-    <lastmod>2025-03-26</lastmod>
+    <loc>links\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>blog/2025/undergrad/index.html</loc>
-    <lastmod>2025-03-02</lastmod>
+    <loc>blog\2025\cast2\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>papers/2023/bitetransfer/index.html</loc>
-    <lastmod>2025-03-01</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>papers/2024/certifiable-tracking/index.html</loc>
-    <lastmod>2025-03-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>papers/2025/masters/index.html</loc>
-    <lastmod>2025-05-16</lastmod>
+    <loc>papers\2024\certifiable-tracking\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
