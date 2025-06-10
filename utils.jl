@@ -205,6 +205,8 @@ Find and list all papers with all tags in `params`.
             pvd = Date(Dates.unix2datetime(stat(path * ".md").ctime))
         end
 
+        # class
+        write(io, """<div class="paper">\n""")
         # paper title
         write(io, """$t <date>($(Dates.format(pvd, "u yyyy")))</date><br>\n""")
         # authors
@@ -237,9 +239,10 @@ Find and list all papers with all tags in `params`.
         end
         # bibtex
         write(io, """<a href="/$(l[1:end-1])#bibtex">bibTeX</a>\n""")
-        if i != length(paths)
-            write(io, "<br>")
-        end
+        write(io, """</div>\n""")
+        # if i != length(paths)
+        #     write(io, "<br>")
+        # end
     end
     write(io,"</p>")
     return String(take!(io))

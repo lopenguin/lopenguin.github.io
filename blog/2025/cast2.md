@@ -13,7 +13,9 @@ tags = ["blog", "tracking", "rotations"]
 
 Last year I published my first paper with SPARK lab, proposing a Certifiably optimal Algorithm for object Shape estimation and pose Tracking over time (CAST). The tracking problem is a fundamentally non-convex optimization problem due to the presence of rotations. Despite this, we showed that reformulating the problem as a quadratically-constrained quadratic program led to a tight convex relaxation in many real-world scenarios. It's part of a line of research that shows many NP-hard problems are often polynomial time in common robotics applications.
 
-The post revists a key part of CAST: the constant-twist motion model for between-frame motion. I do not go into great detail on the algorithm or relaxation here; please refer to the paper. **Edit (June 2025): CAST-W has been fleshed out in my Master's thesis, also available below.**
+The post revists a key part of CAST: the constant-twist motion model for between-frame motion. I do not go into great detail on the algorithm or relaxation here; please refer to the paper. 
+
+**Edit (June 2025): CAST-W has been fleshed out in my Master's thesis, also available below.**
 
 {{paperswithtags CASTW}}
 

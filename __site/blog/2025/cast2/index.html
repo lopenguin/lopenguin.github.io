@@ -40,13 +40,18 @@
 <!-- Content appended here --><div class="franklin-content">
 <h1 id="revisiting_cast_world-frame_motion_model"><a href="#revisiting_cast_world-frame_motion_model" class="header-anchor">Revisiting CAST: World-Frame Motion Model</a></h1>
 <p>Last year I published my first paper with SPARK lab, proposing a Certifiably optimal Algorithm for object Shape estimation and pose Tracking over time &#40;CAST&#41;. The tracking problem is a fundamentally non-convex optimization problem due to the presence of rotations. Despite this, we showed that reformulating the problem as a quadratically-constrained quadratic program led to a tight convex relaxation in many real-world scenarios. It&#39;s part of a line of research that shows many NP-hard problems are often polynomial time in common robotics applications.</p>
-<p>The post revists a key part of CAST: the constant-twist motion model for between-frame motion. I do not go into great detail on the algorithm or relaxation here; please refer to the paper. <strong>Edit &#40;June 2025&#41;: CAST-W has been fleshed out in my Master&#39;s thesis, also available below.</strong></p>
-<p>Master's Thesis: Optimization Techniques for Trustworthy 3D Object Understanding <date>(May 2025)</date><br>
+<p>The post revists a key part of CAST: the constant-twist motion model for between-frame motion. I do not go into great detail on the algorithm or relaxation here; please refer to the paper. </p>
+<p><strong>Edit &#40;June 2025&#41;: CAST-W has been fleshed out in my Master&#39;s thesis, also available below.</strong></p>
+<p><div class="paper">
+Master's Thesis: Optimization Techniques for Trustworthy 3D Object Understanding <date>(May 2025)</date><br>
 &emsp;<i style="font-weight: 300;">Lorenzo Shaikewitz</i><br>
 &emsp;<a href=/papers/2025/masters>D-Space</a>&ensp;/&ensp;<a href=/papers/2025/masters>video</a>&ensp;/&ensp;<a href="/papers/2025/masters#bibtex">bibTeX</a>
-<br>A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking <date>(Oct 2024)</date><br>
+</div>
+<div class="paper">
+A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking <date>(Oct 2024)</date><br>
 &emsp;<i style="font-weight: 300;">Lorenzo Shaikewitz, Samuel Ubellacker, and Luca Carlone</i><br>
 &emsp;<a href=https://ieeexplore.ieee.org/document/10756720>RA-L</a>&ensp;/&ensp;<a href=https://arxiv.org/abs/2406.16837>arXiv</a>&ensp;/&ensp;<a href=https://github.com/MIT-SPARK/certifiable_tracking>code</a>&ensp;/&ensp;<a href=https://youtu.be/eTIlVD9pDtc?si=FfQ1spGXXVddWQFB>video</a>&ensp;/&ensp;<a href="/papers/2024/certifiable-tracking#bibtex">bibTeX</a>
+</div>
 </p>
 <h2 id="part_1_the_motion_model"><a href="#part_1_the_motion_model" class="header-anchor">Part 1: The Motion Model</a></h2>
 <p>A key idea in object tracking is to enforce physically plausable object motion across frames. We impose a motion model, which essentially enforces continuity of motion &#40;and perhaps biases that motion from knowledge of the object dynamics&#41;. For example, car tracking algorithms often use a <em>constant velocity and turn rate</em> model. Even more common is just constant velocity or constant acceleration.</p>
