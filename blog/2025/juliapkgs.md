@@ -3,7 +3,7 @@ title = "Julia Packages"
 hasmath = true
 hascode = false
 
-date = Date(2025, 2, 26)
+date = Date(2025, 6, 19)
 tags = ["blog", "julia", "p3p", "pnp", ""]
 +++
 
