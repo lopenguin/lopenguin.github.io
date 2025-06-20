@@ -2,18 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-    <loc>papers\2023\bitetransfer\index.html</loc>
-    <lastmod>2025-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>blog\2025\globalso3\index.html</loc>
-    <lastmod>2025-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
     <loc>blog\2025\undergrad\index.html</loc>
     <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -26,6 +14,18 @@
     <priority>0.5</priority>
 </url>
 <url>
+    <loc>blog\2025\juliapkgs\index.html</loc>
+    <lastmod>2025-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>blog\2025\globalso3\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
     <loc>blog\2025\steinslam\index.html</loc>
     <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -33,7 +33,7 @@
 </url>
 <url>
     <loc>papers\2025\masters\index.html</loc>
-    <lastmod>2025-06-10</lastmod>
+    <lastmod>2025-06-19</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -44,13 +44,19 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>blog\2025\cast2\index.html</loc>
+    <loc>papers\2024\certifiable-tracking\index.html</loc>
     <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>papers\2024\certifiable-tracking\index.html</loc>
+    <loc>papers\2023\bitetransfer\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>blog\2025\cast2\index.html</loc>
     <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>

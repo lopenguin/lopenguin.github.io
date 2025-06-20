@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+  
+  
+  <!-- <link rel="icon" href="/assets/favicon.ico"> -->
+  <link rel="stylesheet" href="/css/lorenzo.css">
+  <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
+   <title>Julia Packages</title>  
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="franklin-content" style="margin-top: 1.5em;">
+    <a href="/""><b>(home)</b></a>
+</div>
+
+<!-- Content appended here --><div class="franklin-content">
+<h1 id="a_small_index_of_my_julia_packages"><a href="#a_small_index_of_my_julia_packages" class="header-anchor">A Small Index of My Julia Packages</a></h1>
+<p>Recently, I&#39;ve had a lot of fun building and releasing simple packages for the Julia programming language. If you haven&#39;t used Julia, it&#39;s a fantastic language for mathematicians and the mathematically-inclined: you can use greek letters as variable names, you can omit that ugly <code>*</code> sign between constant coefficients and variables &#40;you can write <code>2x</code> for <code>2*x</code>, for example&#41;, and most importantly it is fast. When I think about working on the future of robotics, Julia is my language of choice.</p>
+<p>As such, I&#39;ve recently assembled a couple of small informal Julia packages. I thought it would be helpful to put them all in one place.</p>
+<h2 id="a_hrefhttpsgithubcomlopenguintutorialtssosjltutorialtssosjl"><a href="#a_hrefhttpsgithubcomlopenguintutorialtssosjltutorialtssosjl" class="header-anchor"><a href="https://github.com/lopenguin/TutorialTSSOS.jl">TutorialTSSOS.jl</a></a></h2>
+<p>This package is designed as a basic tutorial for <a href="https://github.com/wangjie212/TSSOS">TSSOS</a> geared towards roboticists and computer vision researchers. TSSOS is a fantastic tool for automatically generating sparse semidefinite relaxations of polynomial optimization problems at arbitrary order, but it can be somewhat hard to use. In the tutorial, I give a simple example &#40;certifiable PnP&#41; and walk through the steps of constructing the polynomial problem and solving it with TSSOS. PnP is a particularly good example because the first order relaxation is only sometimes tight, but the second order relaxation is almost always tight. A great strength of TSSOS is easily generating the higher-order relaxation when the lower-order is not tight.</p>
+<p>The tutorial also includes an example script which goes deeper into <a href="https://github.com/lopenguin/TSSOS.jl">my fork of TSSOS</a>. In my fork, I change the output arguments to expose the JuMP model that TSSOS solves. This allows greater transparency &#40;you can easily inspect the model before solving it&#41;, the use of additional solvers, and the ability to impose additional constraints. Of course, it also adds to the overhead of solving and processing a solution. The goal of the example is to show you one way to process the solution which can be easily copied into a different problem setup.</p>
+<p>As I gather feedback on this first iteration of the tutorial I hope to add more examples and perhaps flesh out the advanced PnP example.</p>
+<h2 id="a_hrefhttpsgithubcomlopenguinsimplerotationsjlsimplerotationsjl"><a href="#a_hrefhttpsgithubcomlopenguinsimplerotationsjlsimplerotationsjl" class="header-anchor"><a href="https://github.com/lopenguin/SimpleRotations.jl">SimpleRotations.jl</a></a></h2>
+<p>This is a very minimal package which implements basic transforms between rotation representations and related functions such as generating a random rotation matrix or projecting a matrix to \(\mathrm{SO}(3)\). It&#39;s not designed to be fast, minimal, or complete. Just simple. At this point, it&#39;s become a dependency of most of projects.</p>
+<h2 id="a_hrefhttpsgithubcomlopenguinp3pjlp3pjl"><a href="#a_hrefhttpsgithubcomlopenguinp3pjlp3pjl" class="header-anchor"><a href="https://github.com/lopenguin/P3P.jl">P3P.jl</a></a></h2>
+<p>I implement in Julia the direct P3P method by <a href="https://github.com/g9nkn/p3p_problem">Nakano</a>. The code is pretty much a direct port of the MATLAB implementation and was written quickly to fill my need &#40;for a P3P solver in Julia&#41;. I&#39;m open to implementations of more P3P solvers, or to folding this into a larger image processing library. The package consists of only the Nakano P3P function.</p>
+<h2 id="a_hrefhttpsgithubcomlopenguintssosjltssos_fork"><a href="#a_hrefhttpsgithubcomlopenguintssosjltssos_fork" class="header-anchor"><a href="https://github.com/lopenguin/TSSOS.jl">TSSOS &#40;fork&#41;</a></a></h2>
+<p>This is my fork of the fantastic project <a href="https://github.com/wangjie212/TSSOS">TSSOS</a> for polynomial optimization. I largely modify TSSOS for interpretability and flexibility. In particular, I adjust the functions <code>cs_tssos_first</code> and <code>cs_tssos_higher&#33;</code> to also return the JuMP model of the convex semidefinite program. The user can choose to solve this program themselves, with any conic solver and any additional constraints. It&#39;s also really easy to inspect the SDP to make sure the right constraints are imposed.</p>
+<p>The fork is far from perfect. In particular, the interface is somewhat lazily written to interface with TSSOS. In time, I hope to incorporate some of this code in the main TSSOS project and rework it for a better interface.</p>
+<footer>
+    <a href="https://franklinjl.org/">
+    <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
+    </a>
+
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: June 20, 2025.
+    <br>
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</footer>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/contrib/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>
