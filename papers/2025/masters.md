@@ -77,7 +77,7 @@ These animations show the trajectory of self-consistent field iteration as stere
 ~~~
 
 ## Corrections
-These corrects apply to the version on MIT DSPACE. 
+These corrections apply to the version on MIT DSPACE. 
 ~~~
 <a target="_blank" href="https://drive.google.com/file/d/1ddFhrA-AP_cN_WmZDIanHxaTQoyg3i-K/view?usp=sharing">This draft</a>
 ~~~
