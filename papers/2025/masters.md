@@ -17,9 +17,9 @@ tags = ["rotations", "SDP", "papers", "selected", "CASTW", "masters"]
 
 # Master's Thesis: Optimization Techniques for Trustworthy 3D Object Understanding
 
-I submitted my master's thesis to the department on Friday, May 16. It's focused on fundamental algorithms for estimating the position, orientation, and shape of objects. When available, you can download a draft 
+I submitted my master's thesis to the department on Friday, May 16. It's focused on fundamental algorithms for estimating the position, orientation, and shape of objects. You can download a draft 
 ~~~
-<a target="_blank" href="/assets/blog/masters/LorenzoMastersThesisDRAFT.pdf">here</a>.
+<a target="_blank" href="https://drive.google.com/file/d/1ddFhrA-AP_cN_WmZDIanHxaTQoyg3i-K/view?usp=sharing">here</a>.
 ~~~
 Here's a brief outline:
 
@@ -76,6 +76,20 @@ These animations show the trajectory of self-consistent field iteration as stere
 </a>
 ~~~
 
+## Corrections
+These corrects apply to the version on MIT DSPACE. 
+~~~
+<a target="_blank" href="https://drive.google.com/file/d/1ddFhrA-AP_cN_WmZDIanHxaTQoyg3i-K/view?usp=sharing">This draft</a>
+~~~
+is up to date with the latest version.
+
+1. The functions $\Omega_2$ with $\Omega_1$ are exchanged in eq. 2.23, which led to an error that propagates through 2.24 and 2.25. Eq. 2.25 should read:
+$$
+\mathbf{x}^\mathsf{T}\mathbf R\mathbf y
+    = 
+    -\mathbf q^\mathsf{T} \mathbf{\Omega}_1(\tilde{\mathbf x})\mathbf{\Omega}_2(\tilde{\mathbf y})\mathbf q
+$$
+2. There should be a negative sign in the lower off-diagonal block in eqs. 4.16 and 4.18.
 
 ## BibTeX
 ```plaintext
