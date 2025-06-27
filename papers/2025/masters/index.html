@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
    <link rel="stylesheet" href="/libs/highlight/styles/github.min.css">
    
   
@@ -37,8 +38,8 @@
 
 <!-- Content appended here --><div class="franklin-content">
 <h1 id="masters_thesis_optimization_techniques_for_trustworthy_3d_object_understanding"><a href="#masters_thesis_optimization_techniques_for_trustworthy_3d_object_understanding" class="header-anchor">Master&#39;s Thesis: Optimization Techniques for Trustworthy 3D Object Understanding</a></h1>
-<p>I submitted my master&#39;s thesis to the department on Friday, May 16. It&#39;s focused on fundamental algorithms for estimating the position, orientation, and shape of objects. When available, you can download a draft 
-<a target="_blank" href="/assets/blog/masters/LorenzoMastersThesisDRAFT.pdf">here</a>.
+<p>I submitted my master&#39;s thesis to the department on Friday, May 16. It&#39;s focused on fundamental algorithms for estimating the position, orientation, and shape of objects. You can download a draft 
+<a target="_blank" href="https://drive.google.com/file/d/1ddFhrA-AP_cN_WmZDIanHxaTQoyg3i-K/view?usp=sharing">here</a>.
  Here&#39;s a brief outline:</p>
 <ol>
 <li><p><strong>Preliminaries.</strong> A review of the mathematics, including Shor&#39;s relaxation, conformal prediction, and quaternion algebra.</p>
@@ -89,6 +90,23 @@
 <img src="/assets/blog/masters/MastersPoster.png" alt="Click to zoom in">
 </a>
 
+<h2 id="corrections"><a href="#corrections" class="header-anchor">Corrections</a></h2>
+<p>These corrects apply to the version on MIT DSPACE. 
+<a target="_blank" href="https://drive.google.com/file/d/1ddFhrA-AP_cN_WmZDIanHxaTQoyg3i-K/view?usp=sharing">This draft</a>
+ is up to date with the latest version.</p>
+<ol>
+<li><p>The functions \(\Omega_2\) with \(\Omega_1\) are exchanged in eq. 2.23, which led to an error that propagates through 2.24 and 2.25. Eq. 2.25 should read:</p>
+</li>
+</ol>
+\[
+\mathbf{x}^\mathsf{T}\mathbf R\mathbf y
+    = 
+    -\mathbf q^\mathsf{T} \mathbf{\Omega}_1(\tilde{\mathbf x})\mathbf{\Omega}_2(\tilde{\mathbf y})\mathbf q
+\]
+<ol start="2">
+<li><p>There should be a negative sign in the lower off-diagonal block in eqs. 4.16 and 4.18.</p>
+</li>
+</ol>
 <h2 id="bibtex"><a href="#bibtex" class="header-anchor">BibTeX</a></h2>
 <pre><code class="language-plaintext">@misc&#123;Coming soon&#33;&#125;</code></pre>
 <h2 id="related_papers"><a href="#related_papers" class="header-anchor">Related Papers</a></h2>
@@ -108,11 +126,16 @@ A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking <
     <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
     </a>
 
-    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: June 10, 2025.
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: June 27, 2025.
     <br>
     Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
 </footer>
 </div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/contrib/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
     
     
         <script src="/libs/highlight/highlight.min.js"></script>
