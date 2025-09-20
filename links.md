@@ -10,7 +10,7 @@ title = "Lorenzo's Links"
 <a href="https://mitprod-my.sharepoint.com/my?login_hint=lorenzos%40mit%2Eedu">OneDrive</a><br>
 
 <h2>Courses</h2>
-6.7960. <a href="https://deeplearning6-7960.github.io/#schedule">Deep Learning</a> // <a href="https://piazza.com/class/mexb078f4z54ia">Piazza</a><br>
+6.7960. <a href="https://deeplearning6-7960.github.io/#schedule">Deep Learning</a> // <a href="https://canvas.mit.edu/courses/33933">Canvas</a> // <a href="https://legacy.piazza.com/class/mexb078f4z54ia">Piazza</a><br>
 <br>
 IDS.160. <a href="https://canvas.mit.edu/courses/31406">Non-Asymptotic Statistics</a> // <a href="https://www.cambridge.org/core/books/highdimensional-statistics/8A91ECEEC38F46DAB53E9FF8757C7A4E">W</a>—<a href="https://arxiv.org/pdf/2310.19244">RH</a>—<a href="https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf">V</a>—<a href="https://web.math.princeton.edu/~rvan/APC550.pdf">vH</a><br>
 <br>
