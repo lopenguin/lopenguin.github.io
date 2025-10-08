@@ -9,7 +9,7 @@
 </url>
 <url>
     <loc>index.html</loc>
-    <lastmod>2025-09-20</lastmod>
+    <lastmod>2025-10-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -45,7 +45,13 @@
 </url>
 <url>
     <loc>links\index.html</loc>
-    <lastmod>2025-09-11</lastmod>
+    <lastmod>2025-09-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>papers\2025\quatpose\index.html</loc>
+    <lastmod>2025-10-08</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
