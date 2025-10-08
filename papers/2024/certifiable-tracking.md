@@ -12,7 +12,7 @@ code = "https://github.com/MIT-SPARK/certifiable_tracking"
 video = "https://youtu.be/eTIlVD9pDtc?si=FfQ1spGXXVddWQFB"
 authors = "Lorenzo Shaikewitz, Samuel Ubellacker, and Luca Carlone"
 
-tags = ["rotations", "SDP", "papers", "selected", "CAST", "CASTW"]
+tags = ["rotations", "SDP", "papers", "selected", "CAST", "CASTW", "pose"]
 +++
 
 # A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking
@@ -32,4 +32,4 @@ tags = ["rotations", "SDP", "papers", "selected", "CAST", "CASTW"]
 ```
 
 ## Related Papers
-{{paperswithtags selected SDP}}
+{{paperswithtags pose}}

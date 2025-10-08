@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+  
+  
+  <!-- <link rel="icon" href="/assets/favicon.ico"> -->
+  <link rel="stylesheet" href="/css/lorenzo.css">
+  <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
+   <title>On SDP Duality</title>  
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="franklin-content" style="margin-top: 1.5em;">
+    <a href="/""><b>(home)</b></a>
+</div>
+
+<!-- Content appended here --><div class="franklin-content">
+<h1 id="on_sdp_duality"><a href="#on_sdp_duality" class="header-anchor">On SDP Duality</a></h1>
+<p>While SDP duality is not philosophically different than duality for linear programs, I initially found it difficult to wrap my head around. This is because many textbooks cover only conic duality, without expliciting stating SDP duality. I&#39;ve used a number of sources for this writeup, but I found <a href="&#40;https://people.eecs.berkeley.edu/~elghaoui/Teaching/EE227A/lecture11.pdf&#41;">this page</a> particularly helpful.</p>
+<p>First, a quick reference table:</p>
+<table><tr><th align="left">Primal</th><th align="left">Dual</th></tr><tr><td align="left"></td><td align="left"></td></tr></table>
+\[\begin{aligned} \min_{X\succeq 0}\ & \langle C, X \rangle\\ \mathrm{s.t.}\ & \langle A_i, X \rangle = a_i,\ i=1,...,n,\\& \langle B_j, X \rangle \geq b_j,\ j=1,...,m, \end{aligned}\]
+<p>              |</p>
+\[\begin{aligned} \max_{\lambda\in\mathbb{R}^m,\ \mu\in\mathbb{R}^n}\ & \sum_{i=1}^n \mu_i a_i\\\mathrm{s.t.}\ & \sum_{i=1}^n \mu_i A_i + \sum_{j=1}^m \lambda_j B_j \succeq C\\& \lambda_j \geq 0,\ j=1,...,m.\end{aligned}\]
+<p>                |</p>
+<p>Really, the dual just &quot;swaps&quot; the constraints and the objective. Part of the magic of the duality is that familiar practioners can just write the dual without thinking. We&#39;ll start with a measured approach, and then go over how to just write the dual.</p>
+<h2 id="the_conic_lagrangian"><a href="#the_conic_lagrangian" class="header-anchor">The Conic Lagrangian</a></h2>
+<p>The dual is really a consequence of the KKT conditions, and this </p>
+<ul>
+<li><p>Derive dual as in lecture &#40;l7 / l2&#41;</p>
+</li>
+<li><p>Comment on strict feasibility</p>
+</li>
+</ul>
+<h2 id="aside_strong_duality"><a href="#aside_strong_duality" class="header-anchor">Aside: Strong Duality</a></h2>
+<h2 id="writing_as_a_standard_sdp"><a href="#writing_as_a_standard_sdp" class="header-anchor">Writing as a Standard SDP</a></h2>
+<ul>
+<li><p>comment on how this is not the &quot;standard&quot; version and how to convert inequalities into standard version.</p>
+</li>
+</ul>
+<h2 id="general_conic_duality"><a href="#general_conic_duality" class="header-anchor">General conic duality</a></h2>
+<footer>
+    <a href="https://franklinjl.org/">
+    <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
+    </a>
+
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: September 20, 2025.
+    <br>
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</footer>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/contrib/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>

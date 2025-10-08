@@ -12,7 +12,7 @@ code = ""
 video = "/papers/2025/masters"
 authors = "Lorenzo Shaikewitz"
 
-tags = ["rotations", "SDP", "papers", "selected", "CASTW", "masters"]
+tags = ["rotations", "SDP", "papers", "selected", "CASTW", "masters", "pose"]
 +++
 
 # Master's Thesis: Optimization Techniques for Trustworthy 3D Object Understanding
@@ -97,4 +97,4 @@ $$
 ```
 
 ## Related Papers
-{{paperswithtags selected SDP}}
+{{paperswithtags pose}}
