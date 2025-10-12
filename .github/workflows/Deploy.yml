@@ -24,9 +24,9 @@ jobs:
     # packages such as PyPlot.
     # - run: pip install matplotlib
     - name: Install Julia
-      uses: julia-actions/setup-julia@v1
+      uses: julia-actions/setup-julia@v2
       with:
-        version: '1' # Latest stable Julia release.
+        version: '1.11.7' # Franklin not working on 1.12 for now.
     # NOTE
     #   The steps below ensure that NodeJS and Franklin are loaded then it
     #   installs highlight.js which is needed for the prerendering step
