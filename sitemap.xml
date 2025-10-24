@@ -2,20 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
-    <loc>blog\2025\undergrad\index.html</loc>
-    <lastmod>2025-06-10</lastmod>
+    <loc>blog\2025\lagrangiansos\index.html</loc>
+    <lastmod>2025-10-24</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
     <loc>index.html</loc>
-    <lastmod>2025-10-11</lastmod>
+    <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>blog\2025\sdpduality\index.html</loc>
-    <lastmod>2025-09-20</lastmod>
+    <loc>blog\2025\undergrad\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
