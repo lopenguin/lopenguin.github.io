@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+  
+  
+  <!-- <link rel="icon" href="/assets/favicon.ico"> -->
+  <link rel="stylesheet" href="/css/lorenzo.css">
+  <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
+   <title>Lagrangian SOS</title>  
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="franklin-content" style="margin-top: 1.5em;">
+    <a href="/""><b>(home)</b></a>
+</div>
+
+<!-- Content appended here --><div class="franklin-content">
+<h1 id="the_moment-sum-of-squares_hierarchy_generalizes_the_lagrangian"><a href="#the_moment-sum-of-squares_hierarchy_generalizes_the_lagrangian" class="header-anchor">The moment-sum-of-squares hierarchy generalizes the Lagrangian</a></h1>
+<div class="note"><div class="title">ⓘ See Also</div>
+<div class="content">This post draws from <a href="https://www-cs.stanford.edu/people/davidknowles/lagrangian_duality.pdf">Prof. Davis Knowles&#39;s notes on the Lagrangian</a> and the sum-of-squares formalisms in <a href="https://doi.org/10.1007/s10898-005-2099-2">Nie and Demmel &#40;2005&#41;</a>.</div></div>
+<p>There&#39;s a deep, somewhat subtle connection between Lagrangian duality and the moment-sum-of-squares hierarchy for polynomial optimization. In this post I will show, for polynomial optimization problems, that the sum-of-squares hierarchy essentially generalizes the Lagrangian dual to a <em>polynomial</em> dual.</p>
+<h2 id="setup"><a href="#setup" class="header-anchor">Setup</a></h2>
+<p>Consider a general polynomial optimization problem:</p>
+<a id="eqoptprob" class="anchor"></a>\[\begin{aligned}
+
+p^\star = \min_{x} &f(x)\\
+\mathrm{s.t.}\:&g_i(x) \leq 0,\ i=1,...,N,
+\end{aligned}\]
+<p>where \(f\) and \(g_i\) are polynomials of order at most \(d\) in \(x\in\mathbb{R}^n\).</p>
+<p>This problem is <em>non-convex</em> for generic polynomials. Instead of trying to solve it exactly, we&#39;ll focus on two relaxation approaches. The first is <em>Lagrangian duality</em>, the standard approach, which imposes a linear penalty on constraint violation. In this post we show the <em>moment-sum-of-squares hierarchy</em> generalizes the linear penality to a polynomial penalty to achieve better bounds.</p>
+<h2 id="preview"><a href="#preview" class="header-anchor">Preview</a></h2>
+<p>Before we get to the proofs, let me show you the Lagragian &#40;scalar&#41; dual and the polynomial &#40;moment-sum-of-squares hierarchy&#41; dual.</p>
+<p>The Lagrangian dual is:</p>
+\[\begin{aligned}
+d^\star = \max_{\lambda\geq0}\ &f(0) + \sum_{i=1}^N \lambda_i g_i(0)\\
+\mathrm{s.t.}\:& \hat f(x) + \sum_{i=1}^N \lambda_i \hat g_i(x) \succeq_{sos} 0.
+\end{aligned}\]
+<p>The polynomial dual from moment-sum-of-squares is:</p>
+\[\begin{aligned}
+d_\kappa^\star = \max_{\lambda_i \in \mathbb{R}_\kappa[x],\ \lambda_i(x) \succeq_{sos} 0}\ & f(0) + \sum_{i=1}^N \lambda_i(0) g_i(0)\\
+\mathrm{s.t.}\:& \hat f(x) + \sum_{i=1}^N \hat \lambda_i(x) \hat g_i(x) \succeq_{sos} 0.
+\end{aligned}\]
+<p>I&#39;m using a compact SOS notation, but this is the standard Lagrangian dual and moment-sos-hierarchy of order \(\kappa\). The key difference is the scalar dual variable \(\lambda_i\) is replaced with a dual polynomial \(\lambda_i(x)\) &#40;of order \(\kappa\)&#41;. Both dual problems are convex, and the polynomial dual is guaranteed &#40;under some regularity&#41; to return the primal solution as \(\kappa\rightarrow\infty\). Let&#39;s explore these in more detail.</p>
+<h2 id="lagrangian_dual"><a href="#lagrangian_dual" class="header-anchor">Lagrangian dual</a></h2>
+<p>In this section, we show the Lagrangian dual gives a lower bound to <span class="eqref">(<a href="#eqoptprob">1</a>)</span> and imposes a linear penalty on constraint violation. Eq. <span class="eqref">(<a href="#eqoptprob">1</a>)</span> is equivalent to:</p>
+<a id="eqlagrangianform" class="anchor"></a>\[
+
+p^\star = \min_x \max_{\lambda \in \mathbb{R}^N_{\geq 0}} f(x) + \sum_{i=1}^N \lambda_i g_i(x).
+\]
+<p>The new objective is called the <em>Lagrangian</em>. To see the equivalence with <span class="eqref">(<a href="#eqoptprob">1</a>)</span>, consider the minimum and maximum together. If any of the constraints on \(x\) are not satisfied, the maximum gives \(+\infty\) which cannot be minimized. Thus, any finite solution requires all constraints to be satisfied. When all \(g_i(x) \leq 0\), the inner maximization is solved for \(\lambda_i \equiv 0\), yielding exactly <span class="eqref">(<a href="#eqoptprob">1</a>)</span>.</p>
+<p>The Lagrangian dual simply swaps the minimum and maximum. That is,</p>
+<a id="eqdual" class="anchor"></a>\[
+
+d^\star = \max_{\lambda \in \mathbb{R}^N_{\geq 0}} \min_x f(x) + \sum_{i=1}^N \lambda_i g_i(x).
+\]
+<p>Why is this dual useful? It&#39;s a concave program&#33; The inner optimization problem is concave &#40;more precisely, linear&#41; in \(\lambda_i\). And the pointwise minimum &#40;over all points \(x\)&#41; of concave functions is concave &#40;though it may no longer be linear&#41;. We&#39;ll make this precise in the next section. Taking the maximum of a concave function lies in the regime of convex optimization.</p>
+<p>Importantly, the dual also provides a <em>lower bound</em> on the solution to <span class="eqref">(<a href="#eqoptprob">1</a>)</span>. Consider the Lagrangian:</p>
+\[
+\mathcal{L}(x, \lambda) \triangleq f(x) + \sum_{i=1}^N \lambda_i g_i(x).
+\]
+<p>For any primal feasible \(x\) &#40;satisfying all inequality constraints&#41; and dual feasible \(\lambda \geq 0\), we have the following two inequalities:</p>
+\[
+\lambda_i g_i(x) \leq 0 \implies \mathcal{L}(x, \lambda) \leq f(x),
+\]
+<p>and</p>
+\[
+\min_x \mathcal{L}(x, \lambda) \leq \mathcal{L}(x, \lambda).
+\]
+<p>Putting these together, for all feasible \((x, \lambda)\) we have:</p>
+\[
+\min_x \mathcal{L}(x, \lambda) \leq \mathcal{L}(x, \lambda) \leq f(x).
+\]
+<p>By taking the maximum over \(\lambda\) on the lefthand side and the primal optimal \(x\) on the righthand side, we have shown <em>weak dualty</em>.</p>
+<div class="theorem"><strong>Theorem.</strong> &#40;Weak duality&#41;     The Lagrangian dual lower bounds the primal: \(d^\star \leq p^\star\).</div>
+<h3 id="specializing_to_polynomials"><a href="#specializing_to_polynomials" class="header-anchor">Specializing to polynomials</a></h3>
+<p>Let&#39;s make the concavity of the dual a little more explicit in the case of polynomials. We first introduce a little notation:</p>
+<div class="notation"><strong>Notation.</strong> \(f\in\mathbb{R}_d[x]\) means \(f(x)\) is a polynomial in \(x\) of degree at most \(d\).</div>
+<p>Every polynomial \(f \in \mathbb{R}_d[x]\) can be written as \([x]_{\lceil d/2 \rceil}^T A [x]_{\lceil d/2 \rceil}\) for some symmetric matrix \(A\) &#40;not necessarily unique&#41;. We call this a <strong>quadratic form</strong>.</p>
+<div class="notation"><p><strong>Notation.</strong> \([x]_{d}\) is the vector of monomials of degree at most \(d\). For \(x\in\mathbb{R}^n\),</p>
+\[
+    [x]_{d} \triangleq [1, x_1, ..., x_n, x_1^2, x_1x_2, ..., x_n^d]^T \in \mathbb{R}^{C(d+n,\ d)}.
+    \]
+<p>This is called the monomial basis.</p></div>
+<p>Using the quadratic form of \(f,\ g_i\in\mathbb{R}_{2d}[x]\), we rewrite the Lagrangian as below:</p>
+\[
+\mathcal{L}(x, \lambda) = [x]_d^T A [x]_d + \sum_{i=1}^N \lambda_i [x]_d^T B_i [x]_d.
+\]
+<p>Recall that the first element of the monomial basis \([x]_d\) is \(1\). To derive the dual it is helpful to separate out the constant terms:</p>
+\[
+\mathcal{L}(x, \lambda) = A_{1,1} + \sum_{i=1}^N \lambda_i (B_i)_{1,1} + [x]_d^T \hat A [x]_d + \sum_{i=1}^N \lambda_i [x]_d^T \hat B_i [x]_d,
+\]
+<p>where \(\hat A\) and \(\hat B_i\) set the \((1,1)\) term to \(0\) to remove the constants. From <span class="eqref">(<a href="#eqdual">5</a>)</span>, we first minimize the Lagrangian over \(x\). Using the trace trick, separate \(x\) from \(\lambda\):</p>
+\[
+\min_x \mathcal{L}(x, \lambda) = A_{1,1} + \sum_{i=1}^N \lambda_i (B_i)_{1,1} + \min_x \left\langle \hat A + \sum_{i=1}^N \lambda_i \hat B_i, [x]_d [x]_d^T\right\rangle.
+\]
+<p>Since \([x]_d [x]_d^T\succeq 0\), the remaining minimum reaches \(-\infty\) if \(\hat A + \sum_{i=1}^N \lambda_i \hat B_i\) has any negative eigenvalues. Thus, we have the Lagrangian dual:</p>
+<a id="eqdualexplicit" class="anchor"></a>\[\begin{aligned}
+
+d^\star = \max_{\lambda\geq0}\ & A_{1,1} + \sum_{i=1}^N \lambda_i (B_i)_{1,1}\\
+\mathrm{s.t.}\:& \hat A + \sum_{i=1}^N \lambda_i \hat B_i \succeq 0.
+\end{aligned}\]
+<p>This is just a convex semidefinite program&#33; We&#39;ve completed the scalar Lagrangian relaxation of our original non-convex polynomial optimization problem. By weak duality, we have \(d^\star \leq p^\star\). In the case \(d^\star < p^\star\), can we get a tighter bound or solve <span class="eqref">(<a href="#eqoptprob">1</a>)</span> exactly? Yes, using higher-order duals from the moment-sum-of-squares hierarchy.</p>
+<h2 id="better_lower_bounds_via_moment-sum-of-squares"><a href="#better_lower_bounds_via_moment-sum-of-squares" class="header-anchor">Better lower bounds via moment-sum-of-squares</a></h2>
+<p>I&#39;ve mentioned several times that the moment-sum-of-squares hierarchy replaces the scalar dual variables \(\lambda_i\) with <em>polynomial</em> duals. Let&#39;s make this explicit. Eq. <span class="eqref">(<a href="#eqoptprob">1</a>)</span> is equivalent to:</p>
+\[
+p^\star = \min_x \max_{\lambda_i \in \mathbb{R}_\kappa[x]_{\geq 0}} f(x) + \sum_{i=1}^N \lambda_i(x) g_i(x).
+\]
+<p>The proof is exactly the same as the Lagrangian dual, noting that the notation \(\lambda_i(x) \geq 0\) &#40;in fact, we can use a weaker condition that \(\lambda_i\) is sum-of-squares, but we introduce this later&#41;. It is perhaps unsurprising that the moment-sum-of-squares dual simply swaps the minimum and maximum:</p>
+<a id="eqdualp" class="anchor"></a>\[
+
+d^\star_\kappa = \max_{\lambda_i \in \mathbb{R}_\kappa[x]_{\geq 0}} \min_x f(x) + \sum_{i=1}^N \lambda_i(x) g_i(x).
+\]
+<p>The same reasoning as before gives \(d^\star_\kappa \leq p^\star\). The special case \(\lambda_i \in \mathbb{R}_\geq 0\) &#40;all higher order terms are \(0\)&#41; gives \(d^\star \leq d^\star_\kappa\). That is, the moment-sum-of-squares dual is at least as good a lower bound as the Lagrangian dual.</p>
+<div class="theorem"><strong>Theorem.</strong> &#40;Weak polynomial duality&#41;     The polynomial dual is an upper bound on the Lagrangian dual and a lower bound on the primal: \(d^\star \leq d^\star_\kappa \leq p^\star\).</div>
+<p>I want to give some intuition as to why a polynomial dual might perform better than a linear dual. Mathematically, the dual polynomial has more degrees of freedom to maximize over &#40;this manifests as matrix comparison, which we will see below&#41;. But the idea of the Lagrangian is to move constraints into the objective with a large penalty. A polynomial dual is a much more expressive penalty than a scalar dual.</p>
+<p>We next derive the exact form of the polynomial dual.</p>
+<h3 id="the_polynomial_dual"><a href="#the_polynomial_dual" class="header-anchor">The polynomial dual</a></h3>
+<p>For positive polynomials \(\lambda_i \in \mathbb{R}_{2\kappa}[x]_{\geq 0}\), the polynomial Lagrangian is:</p>
+\[
+\mathcal{L}_\kappa(x,\lambda(x)) = f(x) + \sum_{i=1}^N \lambda_i(x) g_i(x).
+\]
+<p>Note the subscript \(\kappa\), which indexes the maximum order of the polynomial duals and gives rise to a relaxation hierarchy. As with the scalar Lagrangian, we&#39;ll rewrite each polynomial in quadratic form and pull out the constant parts. Start with the product \(\lambda_i(x)g_i(x)\), which is a polynomial of order at most \(2d+2\kappa\). Breezing through some algebra, we can represent \(\lambda_i(x)g_i(x)\) as \([x]_{d+\kappa}^T C_i [x]_{d+\kappa}\). In quadratic form, the Lagrangian is:</p>
+\[
+\mathcal{L}_\kappa(x,C) = [x]_d^T A [x]_d + \sum_{i=1}^N [x]_{d+\kappa}^T C_i [x]_{d+\kappa}.
+\]
+<p>Notice that we now have a \(N\) dual matrices \(C_i\), which we use for ease of exposition. From here the derivation is nearly identical to the scalar Lagrangian dual. Next, separate the constant terms:</p>
+\[
+\mathcal{L}_\kappa(x,C) = A_{1,1} + \sum_{i=1}^N (C_i)_{1,1} + [x]_d^T \hat A [x]_d + \sum_{i=1}^N [x]_d^T \hat C_i [x]_d,
+\]
+<p>where the hatted matrices have their \((1,1)\) element as 0 &#40;they are polynomials with no constant term&#41;. From <span class="eqref">(<a href="#eqdualp">16</a>)</span>, we take the inner minimization of the polynomial Lagrangian over \(x\). We&#39;ll use the same trace trick to separate the dual variables from \(x\):</p>
+<a id="eqdualpwithmin" class="anchor"></a>\[
+
+\min_x \mathcal{L}_\kappa(x,C) = A_{1,1} + \sum_{i=1}^N (C_i)_{1,1} + \min_x \left\langle \begin{bmatrix} \hat A & 0 \\ 0 & 0 \end{bmatrix} + \sum_{i=1}^N \hat C_i,  [x]_{d+\kappa} [x]_{d+\kappa}^T \right\rangle.
+\]
+<p>In eq. <span class="eqref">(<a href="#eqdualpwithmin">20</a>)</span>, we pad \(\hat A\) with zeros to account for the expanded polynomial basis. Noting that \([x]_{d+\kappa} [x]_{d+\kappa}^T\succeq 0\), we must take the inner product with a positive semidefinite matrix to get a finite minimum. This constraint gives the dual problem:</p>
+\[\begin{aligned}
+d_\kappa^\star = \max_{C_i}\ & A_{1,1} + \sum_{i=1}^N (C_i)_{1,1}\\
+\mathrm{s.t.}\:& \begin{bmatrix} \hat A & 0 \\ 0 & 0 \end{bmatrix} + \sum_{i=1}^N \hat C_i \succeq 0.
+\end{aligned}\]
+<p>What happened here? We simply absorbed the dual polynomial into a higher-order polynomial &#40;the ring of polynomials is closed under multiplication&#41;. After that, we used the same steps as the scalar Lagragian to derive a dual problem&#33;</p>
+<p>A simpler way to write the above problem uses <em>sum-of-squares</em> notation and the more restrictive constraint that \(\lambda_i(x)\) are sum-of-squares &#40;explained in the next section&#41;. For the sake of comparison with <span class="eqref">(<a href="#eqdualexplicit">14</a>)</span>, the polynomial dual is:</p>
+<a id="eqdkappa" class="anchor"></a>\[\begin{aligned}
+
+d_\kappa^\star = \max_{\lambda_i(x) \in \mathbb{R}_\kappa[x]_{\succeq_{sos} 0}}\ & f(0) + \sum_{i=1}^N \lambda_i(0) g_i(0)\\
+\mathrm{s.t.}\:& f(x) - f(0) + \sum_{i=1}^N (\lambda_i(x) g_i(x) - \lambda_i(0) g_i(0)) \succeq_{sos} 0.
+\end{aligned}\]
+<p>Hopefully I&#39;ve convinced you that this hierarchy generalizes the Lagrangian dual using polynomial duals. We&#39;ve also seen that the polynomial dual cannot give any worse of a lower bound than the Lagrangian dual. It turns out we can make a much stronger statement: under some regularity, the polynomial dual converges to the value of the &#40;non-convex&#41; primal as polynomial order tends towards infinity. To see this, we first need a little background in sum-of-squares programming.</p>
+<h3 id="sum-of-squares_background"><a href="#sum-of-squares_background" class="header-anchor">Sum-of-squares background</a></h3>
+<p>A sum-of-squares &#40;SOS&#41; polynomial is simply a polynomial that can be written as the sum of the squares of other polynomials. We&#39;ll use a convenient result from <a href="https://doi.org/10.1007/s10107-003-0387-5">Parrilo &#40;2003&#41;</a> to connect SOS polynomials to positive semidefinite matrices.</p>
+<div class="theorem"><strong>Theorem.</strong>       A polynomial \(p(x)\in\mathbb{R}_{2d}[x]\) is sum-of-squares if and only if there exists \(A \succeq 0\) such that \(p(x) = [x]_d^T A [x_d]\). This can be checked with a semidefinite feasibility problem.</div>
+<p>This representation motivates the following shorthand notation.</p>
+<div class="notation"><strong>Notation.</strong>     We write \(p(x) \succeq_{sos} 0\) to mean \(p(x)\) is sum-of-squares. That is, \(p(x)\) can be written as \(p(x) = [x]_d^T A [x_d]\) with \(A \succeq 0\).</div>
+<p>SOS polynomials are an important subset of the set of <em>positive</em> polynomials \(p(x) \geq 0\). Checking whether a polynomial is positive is an NP-hard problem, but checking if \(p(x)\) is SOS only requires solving an SDP.</p>
+<p>Fortunately, strictly positive polynomials may be represented in part with SOS polynomials. This result is called a positivestellensatz.</p>
+<div class="theorem"><p><strong>Theorem.</strong> &#40;Putinar&#39;s Positivestellensatz&#41; Let \(\mathcal{K} \triangleq \{x : g_i(x) \leq 0 \ \forall\ i\}\), where \(g_i(x)\) are polynomials &#40;a basic semialgebraic set&#41;. Assume \(\mathcal{K}\) is compact. If \(p(x) > 0\) for \(x\in\mathcal{K}\), then</p>
+<a id="eqputinarorig" class="anchor"></a>\[  p(x) = p_0(x) - \sum_{i=1}^N p_i(x) g_i(x), \]
+<p>where \(p_i(x) \succeq_{sos} 0\) for \(i=0,1,...,N\).</p></div>
+<p>Rearranging <span class="eqref">(<a href="#eqputinarorig">23</a>)</span>, Putinar equivalently states that there exist \(p_i(x) \succeq_{sos} 0\) such that:</p>
+<a id="eqputinar" class="anchor"></a>\[
+
+p(x) + \sum_{i=1}^N p_i(x) g_i(x) \succeq_{sos} 0.
+\]
+<p>Note that Putinar guarantees the existance of some polynomials \(p_i(x)\) and does not specify order. In practice, we must restrict \(p_i(x)\) to order \(\kappa\). This leads directly to a <em>hierarchy</em> of relaxations which use higher-order dual polynomials.</p>
+<h3 id="convergence_to_primal"><a href="#convergence_to_primal" class="header-anchor">Convergence to primal</a></h3>
+<p>In this section we&#39;ll show the following result, due to <a href="https://doi.org/10.1137/S1052623400366802">Lasserre &#40;2001&#41;</a>.</p>
+<div class="theorem"><p><strong>Theorem.</strong> &#40;Hierarchy convergence&#41;     The solution to the polynomial dual converges to the primal solution as relaxation order \(\kappa\rightarrow\infty\): </p>
+\[
+    d^\star_\kappa \rightarrow p^\star \text{ as }\kappa\rightarrow\infty.
+    \]</div>
+<p>Putinar&#39;s positivestellensatz is the key to the proof. Define the constraint set \(\mathcal{K} \triangleq \{x : g_i(x) \leq 0 \ \forall\ i\}\). The primal <span class="eqref">(<a href="#eqoptprob">1</a>)</span> is equivalent to maximizing a lower bound on \(f(x)\):</p>
+\[\begin{aligned}
+p^\star = \max_c \ &c\\
+\mathrm{s.t.}\ & f(x) - c \geq 0 \text{ for all } x\in\mathcal{K}.
+\end{aligned}\]
+<p>Let&#39;s relax the constraint \(f(x) - c \geq 0\) to \(f(x) - c > 0\) and replace it with a sum-of-squares inequality using Putinar. We get the relaxed problem:</p>
+<a id="eqoptput" class="anchor"></a>\[\begin{aligned}
+
+d_\mathrm{putinar}^\star = \max_{c,\ \lambda_i(x)\succeq_{sos} 0} \ &c\\
+\mathrm{s.t.}\ & f(x) - c + \sum_{i=1}^N \lambda_i(x)g_i(x) \succeq_{sos} 0.
+\end{aligned}\]
+<p>By the relaxation to a strict inequality, we have \(d^\star_\mathrm{putinar} \leq p^\star\).</p>
+<p>As an aside, we now show <span class="eqref">(<a href="#eqoptput">27</a>)</span> is equivalent to the polynomial dual <span class="eqref">(<a href="#eqdkappa">22</a>)</span> with no constraint on dual polynomial order \(\kappa\). The constant terms can be absorbed into \(c\) as follows. The \((1,1)\) element of the SOS inequality constraint reads:</p>
+\[
+f(0) - c + \sum_{i=1}^N \lambda_i(0) g_i(0) \geq 0
+\iff
+c \leq f(0) + \sum_{i=1}^N \lambda_i(0) g_i(0).
+\]
+<p>Meanwhile, the remaining SOS inequality does not include \(c\). Thus, we can replace \(c\) with its upper bound without changing the optimization problem, arriving at:</p>
+\[\begin{aligned}
+d_\mathrm{putinar}^\star = \max_{\lambda_i(x) \succeq_{sos} 0}\ & f(0) + \sum_{i=1}^N \lambda_i(0) g_i(0)\\
+\mathrm{s.t.}\:& f(x) - f(0) + \sum_{i=1}^N (\lambda_i(x) g_i(x) - \lambda_i(0) g_i(0)) \succeq_{sos} 0.
+\end{aligned}\]
+<p>Having established equivalence, we now use <span class="eqref">(<a href="#eqoptput">27</a>)</span> to prove the polynomial hierarchy converges. From duality, it holds \(d^\star_\mathrm{putinar} \leq p^\star\). Our strategy is to squeeze the dual with a lower bound. Let \(x^\star\) solve the primal <span class="eqref">(<a href="#eqoptprob">1</a>)</span> with value \(p^\star = f(x^\star)\). Perturb \(x^\star\) to \(z=x^\star + \epsilon\in\mathcal{K}\) such that \(f(z) = p^\star - \delta\). The perturbed point \(z\) enjoys strict positivity: \(f(z) - p^\star > 0\). Therefore, \(z\) is feasible for the Putinar dual <span class="eqref">(<a href="#eqoptput">27</a>)</span>. Thus,</p>
+\[
+p^\star - \delta \leq d^\star_\mathrm{putinar} \leq p^\star.
+\]
+<p>Since \(f\) is a polynomial we can make \(\delta\) arbitrarily small by appropriate choice of \(\epsilon\). This shows that with arbitrary high polynomial order the polynomial dual converges to the true value and completes the proof. </p>
+<p>The hierarchy convergence theorem is a remarkable result because it uses convex optimization techniques to solve a non-convex problem. It&#39;s worth pointing out, however, that there&#39;s no free lunch. Stepping up the relaxation order increases the size of the problem polynomially, making high-order relaxations essentially impratical in real-world applications.</p>
+<h2 id="conclusion"><a href="#conclusion" class="header-anchor">Conclusion</a></h2>
+<p>That was quite a journey&#33; Duality is one of the most interesting and useful concepts in optimization, and I find it remarkable that duality can be &quot;generalized&quot; for a class of otherwise hard polynomial problems. The bonus of a lower bound is the possibility of a <em>optimality gap</em>. Given a primal feasible point \(x\), the optimality gap is the difference between \(f(x)\) and the dual \(d^\star\). There many rounding schemes to obtain a good guess for \(x\) from the dual solution, and this metric is the main &quot;certificate&quot; in certifiable optimization research.</p>
+<p>This line of reasoning led me to a few questions for further thought:</p>
+<ul>
+<li><p>Is there a generalization of the dual for other classes of problems?</p>
+<ul>
+<li><p>Answer &#40;probably&#41;: we need the dual to be convex in order to get good approximations. This greatly restricts the class of possible dual functions. Polynomials worked in this case largely because polynomials are closed under multiplication.</p>
+</li>
+</ul>
+</li>
+<li><p>On the more practical side: are there other polynomial bases which have computational benefits?</p>
+</li>
+</ul>
+<footer>
+    <a href="https://franklinjl.org/">
+    <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
+    </a>
+
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: October 24, 2025.
+    <br>
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</footer>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/contrib/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>
