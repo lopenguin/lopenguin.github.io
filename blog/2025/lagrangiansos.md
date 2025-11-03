@@ -1,5 +1,5 @@
 +++
-title = "Lagrangian SOS"
+title = "Polynomial Duals and Lagrangian SOS"
 hasmath = true
 hascode = false
 
