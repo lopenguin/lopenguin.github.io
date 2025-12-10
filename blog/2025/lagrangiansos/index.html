@@ -5,8 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
    <link rel="stylesheet" href="/libs/katex/katex.min.css">
      
+   <link rel="stylesheet" href="/libs/highlight/styles/github.min.css">
+   
   
-  
+   <script src="https://cdn.plot.ly/plotly-3.3.0.min.js" charset="utf-8"></script>
+<script>
+    // This function is used when calling `\fig{...}` See # Using \fig{...} below
+    const PlotlyJS_json = async (div, url) => {
+    response = await fetch(url); // get file
+    fig = await response.json(); // convert it to json
+    // Make the plot fit the screen responsively. See the documentation of plotly.js. https://plotly.com/javascript/responsive-fluid-layout/
+    if (typeof fig.config === 'undefined') { fig["config"]={} }
+    delete fig.layout.width
+    delete fig.layout.height
+    fig["layout"]["autosize"] = true
+    fig["config"]["autosizable"] = true
+    fig["config"]["responsive"] = true
+
+    // make it easier to scroll throught the website rather than being blocked by a figure.
+    fig.config["scrollZoom"] = false
+
+    // PlotlyJS.savefig by default add the some more attribute to make a static plot.
+    // Disable them to make the website fancier.
+    delete fig.config.staticPlot
+    delete fig.config.displayModeBar
+    delete fig.config.doubleClick
+    delete fig.config.showTips
+
+    Plotly.newPlot(div, fig);
+    };
+</script> 
   <!-- <link rel="icon" href="/assets/favicon.ico"> -->
   <link rel="stylesheet" href="/css/lorenzo.css">
   <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
@@ -50,7 +78,28 @@ p^\star = \min_{x} &f(x)\\
 <p>where \(f\) and \(g_i\) are polynomials of order at most \(d\) in \(x\in\mathbb{R}^n\).</p>
 <p>This problem is <em>non-convex</em> for generic polynomials. Instead of trying to solve it exactly, we&#39;ll focus on two relaxation approaches. The first is <em>Lagrangian duality</em>, the standard approach, which imposes a linear penalty on constraint violation. In this post we show the <em>moment-sum-of-squares hierarchy</em> generalizes the linear penality to a polynomial penalty to achieve better bounds.</p>
 <h2 id="preview"><a href="#preview" class="header-anchor">Preview</a></h2>
-<p>Before we get to the proofs, let me show you the Lagragian &#40;scalar&#41; dual and the polynomial &#40;moment-sum-of-squares hierarchy&#41; dual.</p>
+<p>Before we get to the proofs, let me introduce duality informally. We want to solve a constrained optimization problem like <span class="eqref">(<a href="#eqoptprob">1</a>)</span>. We know how to solve unconstrained problems, so a natural idea is to convert <span class="eqref">(<a href="#eqoptprob">1</a>)</span> into an unconstrained problem. What if we penalize constraint violation by an infinite amount?</p>
+\[\begin{aligned}
+p^\star = 
+\min_{x} &f(x) + \sum_{i=1}^N I(g_i(x)),
+\end{aligned}\]
+<p>where \(I(u)\) is the infinite step function: \(I(u) = 0\) for \(x\leq 0\) and \(I(u) = \infty\) for \(x> 0\).</p>
+<p>This does what we want, but it is non-smooth and thus hard to optimize. The <em>Lagrangian</em> approach replaces \(I(u)\) with \(J(u) = \lambda u\); a straight line&#33; Its behavior is exactly the same as the infinite step function if we first maximize over the parameter \(\lambda\):</p>
+\[\begin{aligned}
+p^\star = 
+\min_{x} \max_{\lambda \geq 0} &f(x) + \sum_{i=1}^N \lambda_i g_i(x).
+\end{aligned}\]
+<p>The Lagrangian <em>dual</em> simply swaps the min and max in the equation above, giving a convex problem which lower bounds \(p^\star\). The lower-bound result holds because the linear penalty \(J(u)\) is a lower bound on the &quot;true&quot; infinite penalty \(I(u)\).</p>
+
+<div class="figure"><img src="/assets/blog/lagrangian/linear.svg"/> 
+<div class="figcaption">The Lagrangian relaxes the infinite step function \(I(u)\) to a linear penalty \(\lambda u\) with \(\lambda\geq0\).</div></div>
+<p>The polynomial sum-of-squares dual generalizes the Lagrangian to a <em>polynomial</em> dual, but not in the \(u\) dimension. That is, the polynomial dual remains linear in the constraint &#40;\(u\)&#41;, but allows the dual to vary with the decision variable \(x\), so long as it is a sum-of-squares polynomial. We write \(J_\kappa(x, u) = p(x) u\) for \(p(x)\succeq_{sos} 0\) &#40;\(p\) is a sum-of-squares&#41;. To visualize this, we need a third axis:</p>
+
+<div class="figure"><div id="id_7bee74f2_c02c_4b4e_b451_faa3746aafc0" style="width:600px;height:400px;margin:auto;"></div>
+    <script src="/assets/blog/lagrangian/test.js"></script>
+    
+<div class="figcaption">The polynomial dual &#40;green&#41; is still a linear function of the constraint \(u\), but it allows the slope to vary polynomially with \(x\).</div></div>
+<p>Intuitively, varying the linear penalty term with \(x\) is complements the constraint&#39;s variations in \(x\) to give a better lower bound. Computing this dual and showing it is a convex program is fleshed out later in this post. Before we get there, a side-by-side comparison:</p>
 <p>The Lagrangian dual is:</p>
 \[\begin{aligned}
 d^\star = \max_{\lambda\geq0}\ &f(0) + \sum_{i=1}^N \lambda_i g_i(0)\\
@@ -110,7 +159,7 @@ d^\star = \max_{\lambda \in \mathbb{R}^N_{\geq 0}} \min_x f(x) + \sum_{i=1}^N \l
 \[
 \mathcal{L}(x, \lambda) = A_{1,1} + \sum_{i=1}^N \lambda_i (B_i)_{1,1} + [x]_d^T \hat A [x]_d + \sum_{i=1}^N \lambda_i [x]_d^T \hat B_i [x]_d,
 \]
-<p>where \(\hat A\) and \(\hat B_i\) set the \((1,1)\) term to \(0\) to remove the constants. From <span class="eqref">(<a href="#eqdual">5</a>)</span>, we first minimize the Lagrangian over \(x\). Using the trace trick, separate \(x\) from \(\lambda\):</p>
+<p>where \(\hat A\) and \(\hat B_i\) set the \((1,1)\) term to \(0\) to remove the constants. From <span class="eqref">(<a href="#eqdual">7</a>)</span>, we first minimize the Lagrangian over \(x\). Using the trace trick, separate \(x\) from \(\lambda\):</p>
 \[
 \min_x \mathcal{L}(x, \lambda) = A_{1,1} + \sum_{i=1}^N \lambda_i (B_i)_{1,1} + \min_x \left\langle \hat A + \sum_{i=1}^N \lambda_i \hat B_i, [x]_d [x]_d^T\right\rangle.
 \]
@@ -148,18 +197,18 @@ d^\star_\kappa = \max_{\lambda_i \in \mathbb{R}_\kappa[x]_{\geq 0}} \min_x f(x) 
 \[
 \mathcal{L}_\kappa(x,C) = A_{1,1} + \sum_{i=1}^N (C_i)_{1,1} + [x]_d^T \hat A [x]_d + \sum_{i=1}^N [x]_d^T \hat C_i [x]_d,
 \]
-<p>where the hatted matrices have their \((1,1)\) element as 0 &#40;they are polynomials with no constant term&#41;. From <span class="eqref">(<a href="#eqdualp">16</a>)</span>, we take the inner minimization of the polynomial Lagrangian over \(x\). We&#39;ll use the same trace trick to separate the dual variables from \(x\):</p>
+<p>where the hatted matrices have their \((1,1)\) element as 0 &#40;they are polynomials with no constant term&#41;. From <span class="eqref">(<a href="#eqdualp">18</a>)</span>, we take the inner minimization of the polynomial Lagrangian over \(x\). We&#39;ll use the same trace trick to separate the dual variables from \(x\):</p>
 <a id="eqdualpwithmin" class="anchor"></a>\[
 
 \min_x \mathcal{L}_\kappa(x,C) = A_{1,1} + \sum_{i=1}^N (C_i)_{1,1} + \min_x \left\langle \begin{bmatrix} \hat A & 0 \\ 0 & 0 \end{bmatrix} + \sum_{i=1}^N \hat C_i,  [x]_{d+\kappa} [x]_{d+\kappa}^T \right\rangle.
 \]
-<p>In eq. <span class="eqref">(<a href="#eqdualpwithmin">20</a>)</span>, we pad \(\hat A\) with zeros to account for the expanded polynomial basis. Noting that \([x]_{d+\kappa} [x]_{d+\kappa}^T\succeq 0\), we must take the inner product with a positive semidefinite matrix to get a finite minimum. This constraint gives the dual problem:</p>
+<p>In eq. <span class="eqref">(<a href="#eqdualpwithmin">22</a>)</span>, we pad \(\hat A\) with zeros to account for the expanded polynomial basis. Noting that \([x]_{d+\kappa} [x]_{d+\kappa}^T\succeq 0\), we must take the inner product with a positive semidefinite matrix to get a finite minimum. This constraint gives the dual problem:</p>
 \[\begin{aligned}
 d_\kappa^\star = \max_{C_i}\ & A_{1,1} + \sum_{i=1}^N (C_i)_{1,1}\\
 \mathrm{s.t.}\:& \begin{bmatrix} \hat A & 0 \\ 0 & 0 \end{bmatrix} + \sum_{i=1}^N \hat C_i \succeq 0.
 \end{aligned}\]
 <p>What happened here? We simply absorbed the dual polynomial into a higher-order polynomial &#40;the ring of polynomials is closed under multiplication&#41;. After that, we used the same steps as the scalar Lagragian to derive a dual problem&#33;</p>
-<p>A simpler way to write the above problem uses <em>sum-of-squares</em> notation and the more restrictive constraint that \(\lambda_i(x)\) are sum-of-squares &#40;explained in the next section&#41;. For the sake of comparison with <span class="eqref">(<a href="#eqdualexplicit">14</a>)</span>, the polynomial dual is:</p>
+<p>A simpler way to write the above problem uses <em>sum-of-squares</em> notation and the more restrictive constraint that \(\lambda_i(x)\) are sum-of-squares &#40;explained in the next section&#41;. For the sake of comparison with <span class="eqref">(<a href="#eqdualexplicit">16</a>)</span>, the polynomial dual is:</p>
 <a id="eqdkappa" class="anchor"></a>\[\begin{aligned}
 
 d_\kappa^\star = \max_{\lambda_i(x) \in \mathbb{R}_\kappa[x]_{\succeq_{sos} 0}}\ & f(0) + \sum_{i=1}^N \lambda_i(0) g_i(0)\\
@@ -176,7 +225,7 @@ d_\kappa^\star = \max_{\lambda_i(x) \in \mathbb{R}_\kappa[x]_{\succeq_{sos} 0}}\
 <div class="theorem"><p><strong>Theorem.</strong> &#40;Putinar&#39;s Positivestellensatz&#41; Let \(\mathcal{K} \triangleq \{x : g_i(x) \leq 0 \ \forall\ i\}\), where \(g_i(x)\) are polynomials &#40;a basic semialgebraic set&#41;. Assume \(\mathcal{K}\) is compact. If \(p(x) > 0\) for \(x\in\mathcal{K}\), then</p>
 <a id="eqputinarorig" class="anchor"></a>\[  p(x) = p_0(x) - \sum_{i=1}^N p_i(x) g_i(x), \]
 <p>where \(p_i(x) \succeq_{sos} 0\) for \(i=0,1,...,N\).</p></div>
-<p>Rearranging <span class="eqref">(<a href="#eqputinarorig">23</a>)</span>, Putinar equivalently states that there exist \(p_i(x) \succeq_{sos} 0\) such that:</p>
+<p>Rearranging <span class="eqref">(<a href="#eqputinarorig">25</a>)</span>, Putinar equivalently states that there exist \(p_i(x) \succeq_{sos} 0\) such that:</p>
 <a id="eqputinar" class="anchor"></a>\[
 
 p(x) + \sum_{i=1}^N p_i(x) g_i(x) \succeq_{sos} 0.
@@ -200,7 +249,7 @@ d_\mathrm{putinar}^\star = \max_{c,\ \lambda_i(x)\succeq_{sos} 0} \ &c\\
 \mathrm{s.t.}\ & f(x) - c + \sum_{i=1}^N \lambda_i(x)g_i(x) \succeq_{sos} 0.
 \end{aligned}\]
 <p>By the relaxation to a strict inequality, we have \(d^\star_\mathrm{putinar} \leq p^\star\).</p>
-<p>As an aside, we now show <span class="eqref">(<a href="#eqoptput">27</a>)</span> is equivalent to the polynomial dual <span class="eqref">(<a href="#eqdkappa">22</a>)</span> with no constraint on dual polynomial order \(\kappa\). The constant terms can be absorbed into \(c\) as follows. The \((1,1)\) element of the SOS inequality constraint reads:</p>
+<p>As an aside, we now show <span class="eqref">(<a href="#eqoptput">29</a>)</span> is equivalent to the polynomial dual <span class="eqref">(<a href="#eqdkappa">24</a>)</span> with no constraint on dual polynomial order \(\kappa\). The constant terms can be absorbed into \(c\) as follows. The \((1,1)\) element of the SOS inequality constraint reads:</p>
 \[
 f(0) - c + \sum_{i=1}^N \lambda_i(0) g_i(0) \geq 0
 \iff
@@ -211,7 +260,7 @@ c \leq f(0) + \sum_{i=1}^N \lambda_i(0) g_i(0).
 d_\mathrm{putinar}^\star = \max_{\lambda_i(x) \succeq_{sos} 0}\ & f(0) + \sum_{i=1}^N \lambda_i(0) g_i(0)\\
 \mathrm{s.t.}\:& f(x) - f(0) + \sum_{i=1}^N (\lambda_i(x) g_i(x) - \lambda_i(0) g_i(0)) \succeq_{sos} 0.
 \end{aligned}\]
-<p>Having established equivalence, we now use <span class="eqref">(<a href="#eqoptput">27</a>)</span> to prove the polynomial hierarchy converges. From duality, it holds \(d^\star_\mathrm{putinar} \leq p^\star\). Our strategy is to squeeze the dual with a lower bound. Let \(x^\star\) solve the primal <span class="eqref">(<a href="#eqoptprob">1</a>)</span> with value \(p^\star = f(x^\star)\). Perturb \(x^\star\) to \(z=x^\star + \epsilon\in\mathcal{K}\) such that \(f(z) = p^\star - \delta\). The perturbed point \(z\) enjoys strict positivity: \(f(z) - p^\star > 0\). Therefore, \(z\) is feasible for the Putinar dual <span class="eqref">(<a href="#eqoptput">27</a>)</span>. Thus,</p>
+<p>Having established equivalence, we now use <span class="eqref">(<a href="#eqoptput">29</a>)</span> to prove the polynomial hierarchy converges. From duality, it holds \(d^\star_\mathrm{putinar} \leq p^\star\). Our strategy is to squeeze the dual with a lower bound. Let \(x^\star\) solve the primal <span class="eqref">(<a href="#eqoptprob">1</a>)</span> with value \(p^\star = f(x^\star)\). Perturb \(x^\star\) to \(z=x^\star + \epsilon\in\mathcal{K}\) such that \(f(z) = p^\star - \delta\). The perturbed point \(z\) enjoys strict positivity: \(f(z) - p^\star > 0\). Therefore, \(z\) is feasible for the Putinar dual <span class="eqref">(<a href="#eqoptput">29</a>)</span>. Thus,</p>
 \[
 p^\star - \delta \leq d^\star_\mathrm{putinar} \leq p^\star.
 \]
@@ -235,7 +284,7 @@ p^\star - \delta \leq d^\star_\mathrm{putinar} \leq p^\star.
     <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
     </a>
 
-    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: November 03, 2025.
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: December 10, 2025.
     <br>
     Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
 </footer>
@@ -246,6 +295,10 @@ p^\star - \delta \leq d^\star_\mathrm{putinar} \leq p^\star.
 <script>renderMathInElement(document.body)</script>
 
     
+    
+        <script src="/libs/highlight/highlight.min.js"></script>
+<script>hljs.highlightAll();hljs.configure({tabReplace: '    '});</script>
+
     
   </body>
 </html>

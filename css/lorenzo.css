@@ -445,3 +445,12 @@ code {
   padding: 0.5em;
   margin-bottom: 1em;
 }
+
+.figure {
+  text-align: center;
+}
+
+.figcaption {
+  font-size: 0.9em;
+  color: #555;
+}
