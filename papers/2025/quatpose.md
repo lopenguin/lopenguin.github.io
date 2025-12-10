@@ -9,7 +9,7 @@ arxiv = "https://arxiv.org/abs/2509.18979"
 venue = ""
 link = ""
 code = "https://github.com/MIT-SPARK/Fast-ShapeAndPose"
-video = ""
+video = "https://youtu.be/KNWt8nH41LA"
 authors = "Lorenzo Shaikewitz, Tim Nguyen, and Luca Carlone"
 
 tags = ["rotations", "SDP", "papers", "selected", "pose", "masters"]

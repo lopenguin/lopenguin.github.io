@@ -9,7 +9,7 @@ arxiv = "https://arxiv.org/abs/2511.21666"
 venue = ""
 link = ""
 code = "https://github.com/MIT-SPARK/PoseUncertaintySets"
-video = ""
+video = "https://youtu.be/2ZUrTQAMcS4"
 authors = "Lorenzo Shaikewitz, Charis Georgiou, and Luca Carlone"
 
 tags = ["rotations", "SDP", "papers", "selected", "pose", "masters"]
