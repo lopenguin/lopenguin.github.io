@@ -33,7 +33,7 @@ hascode = false
 
 <!-- Research Section -->
 ### Research
-*For my masters I focused on finding global solutions to shape and pose estimation problems.*
+*In my masters I focused on finding global solutions to shape and pose estimation problems.*
 {{paperswithtags selected masters}}
 
 *During my undergrad I worked on assistive devices, including robotic feeding.*

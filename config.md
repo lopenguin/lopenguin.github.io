@@ -5,5 +5,6 @@
 
 @def generate_rss = false
 @def hasjsx = false
+@def hasplotly = false
 
 @def prepath = ""

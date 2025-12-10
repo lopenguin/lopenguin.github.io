@@ -2,6 +2,7 @@
 title = "Polynomial Duals and Lagrangian SOS"
 hasmath = true
 hascode = false
+hasplotly = true
 
 date = Date(2025, 10, 23)
 tags = ["blog", "SDP", "duality"]
@@ -31,7 +32,92 @@ where $f$ and $g_i$ are polynomials of order at most $d$ in $x\in\mathbb{R}^n$.
 This problem is *non-convex* for generic polynomials. Instead of trying to solve it exactly, we'll focus on two relaxation approaches. The first is *Lagrangian duality*, the standard approach, which imposes a linear penalty on constraint violation. In this post we show the *moment-sum-of-squares hierarchy* generalizes the linear penality to a polynomial penalty to achieve better bounds.
 
 ## Preview
-Before we get to the proofs, let me show you the Lagragian (scalar) dual and the polynomial (moment-sum-of-squares hierarchy) dual.
+Before we get to the proofs, let me introduce duality informally. We want to solve a constrained optimization problem like \eqref{eq:optprob}. We know how to solve unconstrained problems, so a natural idea is to convert \eqref{eq:optprob} into an unconstrained problem. What if we penalize constraint violation by an infinite amount?
+
+\begin{align}
+p^\star = 
+\min_{x} &f(x) + \sum_{i=1}^N I(g_i(x)),
+\end{align}
+
+where $I(u)$ is the infinite step function: $I(u) = 0$ for $x\leq 0$ and $I(u) = \infty$ for $x> 0$.
+
+This does what we want, but it is non-smooth and thus hard to optimize. The *Lagrangian* approach replaces $I(u)$ with $J(u) = \lambda u$; a straight line! Its behavior is exactly the same as the infinite step function if we first maximize over the parameter $\lambda$:
+
+\begin{align}
+p^\star = 
+\min_{x} \max_{\lambda \geq 0} &f(x) + \sum_{i=1}^N \lambda_i g_i(x).
+\end{align}
+
+The Lagrangian *dual* simply swaps the min and max in the equation above, giving a convex problem which lower bounds $p^\star$. The lower-bound result holds because the linear penalty $J(u)$ is a lower bound on the "true" infinite penalty $I(u)$.
+
+```julia:./code/lagrangian1
+#hideall
+import Plots
+# Fig 1: infinite step penalty versus linear penalty
+Plots.plot([-2; 0; 0], [0; 0; 10]; label = "I(u)", lw=2)
+Plots.plot!([-2; 2], [-0.8; 0.8]; label = "0.4u", lw=2)
+Plots.plot!(xlabel="u", xlims=(-1.5,1.5), ylims=(-1,1),aspect_ratio=:equal)
+
+Plots.savefig(joinpath(@OUTPUT, "linear.svg"));
+```
+
+<!-- \output{./code/lagrangian1} -->
+
+@@figure
+    ~~~ <img src="/assets/blog/lagrangian/linear.svg"/> ~~~
+    <!-- ~~~ <img src="linear.svg"/> ~~~ -->
+    @@figcaption 
+        The Lagrangian relaxes the infinite step function $I(u)$ to a linear penalty $\lambda u$ with $\lambda\geq0$.
+    @@
+@@
+
+The polynomial sum-of-squares dual generalizes the Lagrangian to a *polynomial* dual, but not in the $u$ dimension. That is, the polynomial dual remains linear in the constraint ($u$), but allows the dual to vary with the decision variable $x$, so long as it is a sum-of-squares polynomial. We write $J_\kappa(x, u) = p(x) u$ for $p(x)\succeq_{sos} 0$ ($p$ is a sum-of-squares). To visualize this, we need a third axis:
+
+
+```julia:./code/lagrangian2
+#hideall
+import Plots
+#Plots.plotlyjs()
+# Fig 2: three penalties
+xs = [-2.; 0; 0.01; 2]
+ys = [-2.; 0; 0.01; 2]
+X = [x for y in ys, x in xs]
+Y = [y for y in ys, x in xs]
+
+# step
+Z = [ x <= 0 ? 0 : 10 for y in ys, x in xs ]
+Plots.surface(X, Y, Z; color=:1, legend = false, opacity = 0.8, label="I(u)")
+
+# linear
+Z = [0.4*x for y in ys, x in xs]
+Plots.surface!(X, Y, Z; color=:2, legend = false, opacity = 0.8, label="0.4u")
+
+# quadratic
+xs = [-2.; -1; 0; 1; 2]
+ys = -2:0.2:2
+X = [x for y in ys, x in xs]
+Y = [y for y in ys, x in xs]
+Z = [x*(y^2+0.3) for y in ys, x in xs]
+Plots.surface!(X, Y, Z; color=:3, legend = false, opacity = 0.8, label="u(x² + 0.3)")
+
+
+Plots.plot3d!(xlabel="u", ylabel="x", xlims=(-2,2), ylims=(-2,2), zlims=(-1,1))
+Plots.plot!(camera=(10,10))
+```
+
+@@figure
+    ~~~
+    <div id="id_7bee74f2_c02c_4b4e_b451_faa3746aafc0" style="width:600px;height:400px;margin:auto;"></div>
+    <script src="/assets/blog/lagrangian/test.js"></script>
+    ~~~
+    @@figcaption 
+        The polynomial dual (green) is still a linear function of the constraint $u$, but it allows the slope to vary polynomially with $x$.
+    @@
+@@
+
+
+
+Intuitively, varying the linear penalty term with $x$ is complements the constraint's variations in $x$ to give a better lower bound. Computing this dual and showing it is a convex program is fleshed out later in this post. Before we get there, a side-by-side comparison:
 
 The Lagrangian dual is:
 \begin{align}
