@@ -877,8 +877,9 @@
             "title": {"text": "J"},
         }
     },
-    "width": 600
-}
+    // "width": 600
+},
+{responsive: true}
 );
         
     }

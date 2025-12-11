@@ -107,7 +107,7 @@ Plots.plot!(camera=(10,10))
 
 @@figure
     ~~~
-    <div id="id_7bee74f2_c02c_4b4e_b451_faa3746aafc0" style="width:600px;height:400px;margin:auto;"></div>
+    <div id="id_7bee74f2_c02c_4b4e_b451_faa3746aafc0" style="max-width:100%;width:600px;height:400px;margin:auto;"></div>
     <script src="/assets/blog/lagrangian/test.js"></script>
     ~~~
     @@figcaption 
