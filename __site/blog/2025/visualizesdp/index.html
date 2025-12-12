@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+  
+  
+   <script src="https://cdn.plot.ly/plotly-3.3.0.min.js" charset="utf-8"></script>
+<script>
+    // This function is used when calling `\fig{...}` See # Using \fig{...} below
+    const PlotlyJS_json = async (div, url) => {
+    response = await fetch(url); // get file
+    fig = await response.json(); // convert it to json
+    // Make the plot fit the screen responsively. See the documentation of plotly.js. https://plotly.com/javascript/responsive-fluid-layout/
+    if (typeof fig.config === 'undefined') { fig["config"]={} }
+    delete fig.layout.width
+    delete fig.layout.height
+    fig["layout"]["autosize"] = true
+    fig["config"]["autosizable"] = true
+    fig["config"]["responsive"] = true
+
+    // make it easier to scroll throught the website rather than being blocked by a figure.
+    fig.config["scrollZoom"] = false
+
+    // PlotlyJS.savefig by default add the some more attribute to make a static plot.
+    // Disable them to make the website fancier.
+    delete fig.config.staticPlot
+    delete fig.config.displayModeBar
+    delete fig.config.doubleClick
+    delete fig.config.showTips
+
+    Plotly.newPlot(div, fig);
+    };
+</script> 
+  <!-- <link rel="icon" href="/assets/favicon.ico"> -->
+  <link rel="stylesheet" href="/css/lorenzo.css">
+  <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
+   <title>Visualizing Semidefinite Relaxation</title>  
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="franklin-content" style="margin-top: 1.5em;">
+    <a href="/""><b>(home)</b></a>
+</div>
+
+<!-- Content appended here --><div class="franklin-content">
+<h1 id="visualizing_semidefinite_relaxations"><a href="#visualizing_semidefinite_relaxations" class="header-anchor">Visualizing Semidefinite Relaxations</a></h1>
+<p>Many robotics researchers &#40;including myself&#33;&#41; have shown something like this image to explain the main idea behind an SDP relaxation:</p>
+<div class="figure"><img src="/assets/blog/sdp_visualizations/standard.png" style="max-width:100%;width:600px;margin:auto;"/> 
+<div class="figcaption">Semidefinite relaxations are not, as this picture suggests, a convex approximation of a non-convex function.</div></div>
+<p>This visualization gets across the rough point: we solve a convex problem and arrive at the global minimizer &#40;sometimes&#41;. But it&#39;s also wrong. The relaxation doesn&#39;t change the function value&#33; Consider a generic relaxation:</p>
+\[
+f_\mathrm{orig}(x) = x^T A x
+\ 
+\overset{\text{relax}}{\longrightarrow}
+\ 
+f_\mathrm{SDP}(X) = \langle A, X \rangle,\  X\succeq 0.
+\]
+<p>First of all, \(f_\mathrm{orig}\) and \(f_\mathrm{SDP}\) don&#39;t even have the same domain. We can restrict \(f_\mathrm{SDP}\) to rank-1 matrices in order to plot them together. But then \(X = xx^T\) so \(f_\mathrm{orig}\) and its relaxation overlap:</p>
+<div class="figure"><img src="/assets/blog/sdp_visualizations/standard_correct.png" style="max-width:100%;width:300px;margin:auto;"/> 
+<div class="figcaption">The correct visualization on the same domain is... not very helpful.</div></div>
+<p>Clearly, two dimensions is not enough to convey an accurate picture. Even with 3D plots we cannot perfectly show an SDP relaxation. But we can get much closer to the true spirit of it. In my view, the key insight of semidefinite relaxations is <em>lifting</em>. The relaxation doesn&#39;t magically find a convex function which has the same minimum as the original polynomial. Instead, it minimizes a higher-dimensional extension of \(f_\mathrm{orig}\). Once you understand this, it is easy to see the certificate &#40;the lifted minimizer is on the original domain&#41; and why the relaxation sometimes doesn&#39;t work &#40;the lifted minimizer is not on the original domain&#41;.</p>
+<p>Here is the relaxation image I would show:</p>
+<div class="figure"><img src="/assets/blog/sdp_visualizations/better_sdp.png" style="max-width:100%;width:300px;margin:auto;"/> 
+<div class="figcaption">While still not completely accurate, this highlights the lifting nature of an SDP relaxation.</div></div>
+<p>You can play around with a 3D version of this in <a href="https://www.desmos.com/3d/2cdf9680bd">Desmos</a>. This is not an SDP relaxation&#33; But it is sort of the same style of lifting relaxation. The original problem is:</p>
+<a id="eqorig" class="anchor"></a>\[
+
+\min_{\substack{x, y\in\mathbb{R}}}
+x^2 + y\\
+\mathrm{s.t.\:} x^2 + y^2 = 1
+\]
+<p>Eq. <span class="eqref">(<a href="#eqorig">2</a>)</span> is non-convex due to the quadratic equality constraint. But we can easily relax it by changing the constraint to an inequality:</p>
+\[
+\min_{\substack{x, y\in\mathbb{R}}}
+x^2 + y\\
+\mathrm{s.t.\:} x^2 + y^2 \leq 1
+\]
+<p>The relaxation lifts from a 1D optimization &#40;along the intersection of a cylindrical surface and a 2D manifold&#41; to a 2D optimization problem &#40;a cylindrical volume and a 2D manifold&#41;. As a 1D problem, there are two local minima. By &quot;lifting&quot;, the new problem has only one local minima which must be the global solution to <span class="eqref">(<a href="#eqorig">2</a>)</span>.</p>
+<p>Since we cannot visualization an SDP relaxation in 2D or 3D, this is a good approximation of the main idea. Unlike the 2D picture, it shows that the benefit of a relaxation comes from lifting, not from some magic convex version of the objective. I think its important to show something which is at least consistent with the mathematics to first order. It makes the field more approachable.</p>
+<footer>
+    <a href="https://franklinjl.org/">
+    <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
+    </a>
+
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: December 12, 2025.
+    <br>
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</footer>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/contrib/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>
