@@ -28,7 +28,7 @@ f_\mathrm{orig}(x) = x^T A x
 f_\mathrm{SDP}(X) = \langle A, X \rangle,\  X\succeq 0.
 \end{equation}
 
-First of all, $f_\mathrm{orig}$ and $f_\mathrm{SDP}$ don't even have the same domain. We can restrict $f_\mathrm{SDP}$ to rank-1 matrices in order to plot them together. But then $X = xx^T$ so $f_\mathrm{orig}$ and its relaxation overlap:
+First, $f_\mathrm{orig}$ and $f_\mathrm{SDP}$ don't even have the same domain. We can restrict $f_\mathrm{SDP}$ to rank-1 matrices in order to plot them together. But then $X = xx^T$ so $f_\mathrm{orig}$ and its relaxation overlap:
 
 @@figure
     ~~~ <img src="/assets/blog/sdp_visualizations/standard_correct.png" style="max-width:100%;width:300px;margin:auto;"/> ~~~
@@ -67,4 +67,4 @@ x^2 + y\\
 
 The relaxation lifts from a 1D optimization (along the intersection of a cylindrical surface and a 2D manifold) to a 2D optimization problem (a cylindrical volume and a 2D manifold). As a 1D problem, there are two local minima. By "lifting", the new problem has only one local minima which must be the global solution to \eqref{eq:orig}.
 
-Since we cannot visualization an SDP relaxation in 2D or 3D, this is a good approximation of the main idea. Unlike the 2D picture, it shows that the benefit of a relaxation comes from lifting, not from some magic convex version of the objective. I think its important to show something which is at least consistent with the mathematics to first order. It makes the field more approachable.
+Since we cannot visualize an SDP relaxation in 2D or 3D, this is a good approximation of the main idea. Unlike the 2D picture, it shows that the benefit of a relaxation comes from lifting, not from some magic convex version of the objective. I think its important to show something which is at least consistent with the mathematics to first order. It makes the field more approachable.
