@@ -75,7 +75,7 @@ f_\mathrm{orig}(x) = x^T A x
 \ 
 f_\mathrm{SDP}(X) = \langle A, X \rangle,\  X\succeq 0.
 \]
-<p>First of all, \(f_\mathrm{orig}\) and \(f_\mathrm{SDP}\) don&#39;t even have the same domain. We can restrict \(f_\mathrm{SDP}\) to rank-1 matrices in order to plot them together. But then \(X = xx^T\) so \(f_\mathrm{orig}\) and its relaxation overlap:</p>
+<p>First, \(f_\mathrm{orig}\) and \(f_\mathrm{SDP}\) don&#39;t even have the same domain. We can restrict \(f_\mathrm{SDP}\) to rank-1 matrices in order to plot them together. But then \(X = xx^T\) so \(f_\mathrm{orig}\) and its relaxation overlap:</p>
 <div class="figure"><img src="/assets/blog/sdp_visualizations/standard_correct.png" style="max-width:100%;width:300px;margin:auto;"/> 
 <div class="figcaption">The correct visualization on the same domain is... not very helpful.</div></div>
 <p>Clearly, two dimensions is not enough to convey an accurate picture. Even with 3D plots we cannot perfectly show an SDP relaxation. But we can get much closer to the true spirit of it. In my view, the key insight of semidefinite relaxations is <em>lifting</em>. The relaxation doesn&#39;t magically find a convex function which has the same minimum as the original polynomial. Instead, it minimizes a higher-dimensional extension of \(f_\mathrm{orig}\). Once you understand this, it is easy to see the certificate &#40;the lifted minimizer is on the original domain&#41; and why the relaxation sometimes doesn&#39;t work &#40;the lifted minimizer is not on the original domain&#41;.</p>
@@ -96,13 +96,13 @@ x^2 + y\\
 \mathrm{s.t.\:} x^2 + y^2 \leq 1
 \]
 <p>The relaxation lifts from a 1D optimization &#40;along the intersection of a cylindrical surface and a 2D manifold&#41; to a 2D optimization problem &#40;a cylindrical volume and a 2D manifold&#41;. As a 1D problem, there are two local minima. By &quot;lifting&quot;, the new problem has only one local minima which must be the global solution to <span class="eqref">(<a href="#eqorig">2</a>)</span>.</p>
-<p>Since we cannot visualization an SDP relaxation in 2D or 3D, this is a good approximation of the main idea. Unlike the 2D picture, it shows that the benefit of a relaxation comes from lifting, not from some magic convex version of the objective. I think its important to show something which is at least consistent with the mathematics to first order. It makes the field more approachable.</p>
+<p>Since we cannot visualize an SDP relaxation in 2D or 3D, this is a good approximation of the main idea. Unlike the 2D picture, it shows that the benefit of a relaxation comes from lifting, not from some magic convex version of the objective. I think its important to show something which is at least consistent with the mathematics to first order. It makes the field more approachable.</p>
 <footer>
     <a href="https://franklinjl.org/">
     <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
     </a>
 
-    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: December 12, 2025.
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: January 29, 2026.
     <br>
     Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
 </footer>
