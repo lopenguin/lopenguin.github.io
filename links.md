@@ -10,8 +10,9 @@ title = "Lorenzo's Links"
 <a href="https://mitprod-my.sharepoint.com/my?login_hint=lorenzos%40mit%2Eedu">OneDrive</a><br>
 
 <h2>Courses</h2>
-6.7960. <a href="https://deeplearning6-7960.github.io/#schedule">Deep Learning</a> // <a href="https://canvas.mit.edu/courses/33933">Canvas</a> // <a href="https://legacy.piazza.com/class/mexb078f4z54ia">Piazza</a><br>
+6.7230. <a href="https://canvas.mit.edu/courses/36978">Algebraic Techniques and Semidefinite Optimization</a> // <a href="https://piazza.com/class/mkvw2pngftx6nn/">Piazza</a><br>
 <br>
+6.7960. <a href="https://deeplearning6-7960.github.io/#schedule">Deep Learning</a> // <a href="https://canvas.mit.edu/courses/33933">Canvas</a> // <a href="https://legacy.piazza.com/class/mexb078f4z54ia">Piazza</a><br>
 IDS.160. <a href="https://canvas.mit.edu/courses/31406">Non-Asymptotic Statistics</a> // <a href="https://www.cambridge.org/core/books/highdimensional-statistics/8A91ECEEC38F46DAB53E9FF8757C7A4E">W</a>—<a href="https://arxiv.org/pdf/2310.19244">RH</a>—<a href="https://www.math.uci.edu/~rvershyn/papers/HDP-book/HDP-book.pdf">V</a>—<a href="https://web.math.princeton.edu/~rvan/APC550.pdf">vH</a><br>
 <!-- 6.7700. <a href="https://canvas.mit.edu/courses/28207">Fundamentals of Probability</a><br> -->
 6.7220. <a href="https://manipulation.csail.mit.edu/Fall2024/schedule.html">Robotic Manipulation</a> // <a href="https://manipulation.mit.edu/">Textbook</a> // <a href=https://piazza.com/class/lzpl33q13fp4qv>Piazza</a><br>
