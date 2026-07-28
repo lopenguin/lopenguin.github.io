@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LaTeX Renderer</title>
+
+<!-- MathJax config: use SVG output so we can convert to PNG -->
+<script>
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+    },
+    svg: { fontCache: 'none' }  // inline paths -> needed for clean export
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
+
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+  textarea { width: 100%; height: 140px; font-family: monospace; font-size: 1rem; padding: .5rem; box-sizing: border-box; }
+  .toolbar { margin: .75rem 0; display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
+  #output {
+    min-height: 80px; padding: 1.5rem; border: 1px solid #ccc; border-radius: 8px;
+    background: #fff; overflow-x: auto; font-size: 1.4rem;
+  }
+  button { padding: .5rem 1rem; cursor: pointer; }
+  label { font-size: .9rem; }
+  #status { font-size: .85rem; color: #555; }
+</style>
+</head>
+<body>
+
+<h1>LaTeX Renderer</h1>
+
+<textarea id="input" placeholder="Type LaTeX here, e.g.  $$\int_0^\infty e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}$$">$$E = mc^2$$</textarea>
+
+<div class="toolbar">
+  <button id="downloadPngBtn">Download PNG</button>
+  <button id="copyPngBtn">Copy PNG</button>
+  <button id="downloadSvgBtn">Download SVG</button>
+  <label>Scale: <input id="scale" type="number" value="4" min="1" max="10" step="1" style="width:3rem"></label>
+  <label>Bg:
+    <select id="bg">
+      <option value="#ffffff">White</option>
+      <option value="transparent">Transparent</option>
+    </select>
+  </label>
+  <span id="status"></span>
+</div>
+
+<div id="output"></div>
+
+<script>
+const input  = document.getElementById('input');
+const output = document.getElementById('output');
+const status = document.getElementById('status');
+
+function setStatus(msg) {
+  status.textContent = msg;
+  if (msg) setTimeout(() => { if (status.textContent === msg) status.textContent = ''; }, 2500);
+}
+
+function render() {
+  output.innerHTML = input.value;
+  if (window.MathJax && MathJax.typesetPromise) {
+    MathJax.typesetClear([output]);
+    MathJax.typesetPromise([output]).catch(err => {
+      output.innerHTML = '<span style="color:red">Render error: ' + err.message + '</span>';
+    });
+  }
+}
+
+// Live render (debounced)
+let t;
+input.addEventListener('input', () => { clearTimeout(t); t = setTimeout(render, 300); });
+
+// --- Get a serialized SVG string with explicit dimensions ---
+function getSvgString() {
+  const svg = output.querySelector('svg');
+  if (!svg) return null;
+  const clone = svg.cloneNode(true);
+  const bbox = svg.getBoundingClientRect();
+  const w = Math.ceil(bbox.width);
+  const h = Math.ceil(bbox.height);
+  clone.setAttribute('width', w);
+  clone.setAttribute('height', h);
+  clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  return { str: new XMLSerializer().serializeToString(clone), w, h };
+}
+
+// --- Render SVG onto a canvas, then hand the canvas to a callback ---
+function svgToCanvas(cb) {
+  const info = getSvgString();
+  if (!info) { alert('Nothing rendered yet, or the input has no math.'); return; }
+
+  const scale = parseFloat(document.getElementById('scale').value) || 4;
+  const bg = document.getElementById('bg').value;
+
+  const svgBlob = new Blob([info.str], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(svgBlob);
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = info.w * scale;
+    canvas.height = info.h * scale;
+    const ctx = canvas.getContext('2d');
+    if (bg !== 'transparent') { ctx.fillStyle = bg; ctx.fillRect(0, 0, canvas.width, canvas.height); }
+    ctx.setTransform(scale, 0, 0, scale, 0, 0);
+    ctx.drawImage(img, 0, 0);
+    URL.revokeObjectURL(url);
+    cb(canvas);
+  };
+  img.onerror = () => { alert('Failed to rasterize SVG.'); URL.revokeObjectURL(url); };
+  img.src = url;
+}
+
+// --- CRC32 + tEXt chunk injection to embed LaTeX source as PNG metadata ---
+const crcTable = (() => {
+  const table = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) {
+    let c = n;
+    for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+    table[n] = c >>> 0;
+  }
+  return table;
+})();
+function crc32(bytes) {
+  let c = 0xFFFFFFFF;
+  for (let i = 0; i < bytes.length; i++) c = crcTable[(c ^ bytes[i]) & 0xFF] ^ (c >>> 8);
+  return (c ^ 0xFFFFFFFF) >>> 0;
+}
+function embedPngText(arrayBuffer, keyword, text) {
+  const data = new Uint8Array(arrayBuffer);
+  // tEXt data = keyword + \0 + text (Latin-1)
+  const enc = s => Uint8Array.from([...s].map(ch => ch.charCodeAt(0) & 0xFF));
+  const chunkData = new Uint8Array([...enc(keyword), 0, ...enc(text)]);
+  const type = enc('tEXt');
+  const len = chunkData.length;
+  const chunk = new Uint8Array(4 + 4 + len + 4);
+  const dv = new DataView(chunk.buffer);
+  dv.setUint32(0, len);
+  chunk.set(type, 4);
+  chunk.set(chunkData, 8);
+  const crc = crc32(new Uint8Array([...type, ...chunkData]));
+  dv.setUint32(8 + len, crc);
+
+  // Insert after IHDR: signature(8) + IHDR(len 13 -> 4+4+13+4 = 25) => offset 33
+  const insertAt = 33;
+  const out = new Uint8Array(data.length + chunk.length);
+  out.set(data.subarray(0, insertAt), 0);
+  out.set(chunk, insertAt);
+  out.set(data.subarray(insertAt), insertAt + chunk.length);
+  return out;
+}
+async function canvasToPngBlobWithMeta(canvas) {
+  const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+  const buf = await blob.arrayBuffer();
+  const withMeta = embedPngText(buf, 'Description', input.value);
+  return new Blob([withMeta], { type: 'image/png' });
+}
+
+// --- Download PNG ---
+document.getElementById('downloadPngBtn').addEventListener('click', () => {
+  svgToCanvas(async canvas => {
+    const blob = await canvasToPngBlobWithMeta(canvas);
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'latex.png';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+});
+
+// --- Copy PNG to clipboard ---
+document.getElementById('copyPngBtn').addEventListener('click', () => {
+  if (!navigator.clipboard || !window.ClipboardItem) {
+    setStatus('Clipboard API not supported in this browser.');
+    return;
+  }
+  svgToCanvas(async canvas => {
+    try {
+      // Note: clipboard PNGs are stripped of custom metadata by the OS, so plain PNG here.
+      const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })]);
+      setStatus('PNG copied to clipboard ✓');
+    } catch (err) {
+      setStatus('Copy failed: ' + err.message);
+    }
+  });
+});
+
+// --- Download SVG ---
+document.getElementById('downloadSvgBtn').addEventListener('click', () => {
+  const info = getSvgString();
+  if (!info) { alert('Nothing rendered yet, or the input has no math.'); return; }
+  // Embed source as an SVG <desc> for accessibility/metadata
+  const escaped = input.value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const svgWithDesc = info.str.replace(/(<svg[^>]*>)/, `$1<desc>${escaped}</desc>`);
+  const blob = new Blob([svgWithDesc], { type: 'image/svg+xml;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'latex.svg';
+  a.click();
+  URL.revokeObjectURL(a.href);
+});
+
+// Initial render once MathJax is ready
+window.addEventListener('load', () => setTimeout(render, 500));
+</script>
+
+</body>
+</html>
