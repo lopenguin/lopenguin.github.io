@@ -9,7 +9,7 @@
 </url>
 <url>
     <loc>index.html</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -39,7 +39,7 @@
 </url>
 <url>
     <loc>papers\2025\conformaluncertainty\index.html</loc>
-    <lastmod>2025-12-10</lastmod>
+    <lastmod>2026-08-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -94,6 +94,12 @@
 <url>
     <loc>blog\2026\optimality%20copy\index.html</loc>
     <lastmod>2026-04-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>latex\</loc>
+    <lastmod>2026-07-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
