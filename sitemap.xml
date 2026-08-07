@@ -9,7 +9,7 @@
 </url>
 <url>
     <loc>index.html</loc>
-    <lastmod>2025-12-10</lastmod>
+    <lastmod>2026-08-07</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -74,12 +74,6 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>blog\2026\optimality\index.html</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
     <loc>papers\2023\bitetransfer\index.html</loc>
     <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -88,12 +82,6 @@
 <url>
     <loc>blog\2025\cast2\index.html</loc>
     <lastmod>2025-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>blog\2026\optimality%20copy\index.html</loc>
-    <lastmod>2026-04-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
