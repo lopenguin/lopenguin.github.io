@@ -1,56 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LaTeX Renderer</title>
+<!DOCTYPE html> <html lang=en > <meta charset=UTF-8 > <meta name=viewport  content="width=device-width, initial-scale=1.0"> <title>LaTeX Renderer</title> <script> window.MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] }, svg: { fontCache: 'none' } // inline paths -> needed for clean export }; </script> <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id=MathJax-script  async></script> <style> body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; } textarea { width: 100%; height: 140px; font-family: monospace; font-size: 1rem; padding: .5rem; box-sizing: border-box; } .toolbar { margin: .75rem 0; display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; } #output { min-height: 80px; padding: 1.5rem; border: 1px solid #ccc; border-radius: 8px; background: #fff; overflow-x: auto; font-size: 1.4rem; } button { padding: .5rem 1rem; cursor: pointer; } label { font-size: .9rem; } #status { font-size: .85rem; color: #555; } </style> <h1>LaTeX Renderer</h1> <textarea id=input  placeholder="Type LaTeX here, e.g.  $$\int_0^\infty e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}$$">$$E = mc^2$$</textarea>
 
-<!-- MathJax config: use SVG output so we can convert to PNG -->
-<script>
-  window.MathJax = {
-    tex: {
-      inlineMath: [['$', '$'], ['\\(', '\\)']],
-      displayMath: [['$$', '$$'], ['\\[', '\\]']]
-    },
-    svg: { fontCache: 'none' }  // inline paths -> needed for clean export
-  };
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" id="MathJax-script" async></script>
-
-<style>
-  body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
-  textarea { width: 100%; height: 140px; font-family: monospace; font-size: 1rem; padding: .5rem; box-sizing: border-box; }
-  .toolbar { margin: .75rem 0; display: flex; gap: .5rem; align-items: center; flex-wrap: wrap; }
-  #output {
-    min-height: 80px; padding: 1.5rem; border: 1px solid #ccc; border-radius: 8px;
-    background: #fff; overflow-x: auto; font-size: 1.4rem;
-  }
-  button { padding: .5rem 1rem; cursor: pointer; }
-  label { font-size: .9rem; }
-  #status { font-size: .85rem; color: #555; }
-</style>
-</head>
-<body>
-
-<h1>LaTeX Renderer</h1>
-
-<textarea id="input" placeholder="Type LaTeX here, e.g.  $$\int_0^\infty e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}$$">$$E = mc^2$$</textarea>
-
-<div class="toolbar">
-  <button id="downloadPngBtn">Download PNG</button>
-  <button id="copyPngBtn">Copy PNG</button>
-  <button id="downloadSvgBtn">Download SVG</button>
-  <label>Scale: <input id="scale" type="number" value="4" min="1" max="10" step="1" style="width:3rem"></label>
+<div class=toolbar >
+  <button id=downloadPngBtn >Download PNG</button>
+  <button id=copyPngBtn >Copy PNG</button>
+  <button id=downloadSvgBtn >Download SVG</button>
+  <label>Scale: <input id=scale  type=number  value=4  min=1  max=10  step=1  style="width:3rem"></label>
   <label>Bg:
-    <select id="bg">
-      <option value="#ffffff">White</option>
-      <option value="transparent">Transparent</option>
+    <select id=bg >
+      <option value="#ffffff">White
+      <option value=transparent >Transparent
     </select>
   </label>
-  <span id="status"></span>
+  <span id=status ></span>
 </div>
 
-<div id="output"></div>
+<div id=output ></div>
 
 <script>
 const input  = document.getElementById('input');
@@ -209,6 +173,3 @@ document.getElementById('downloadSvgBtn').addEventListener('click', () => {
 // Initial render once MathJax is ready
 window.addEventListener('load', () => setTimeout(render, 500));
 </script>
-
-</body>
-</html>
