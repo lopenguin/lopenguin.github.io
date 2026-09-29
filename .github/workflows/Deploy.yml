@@ -25,8 +25,8 @@ jobs:
     # - run: pip install matplotlib
     - name: Install Julia
       uses: julia-actions/setup-julia@v2
-      with:
-        version: '1.11.7' # Franklin not working on 1.12 for now.
+      # with:
+        # version: '1.11.7'
     # NOTE
     #   The steps below ensure that NodeJS and Franklin are loaded then it
     #   installs highlight.js which is needed for the prerendering step

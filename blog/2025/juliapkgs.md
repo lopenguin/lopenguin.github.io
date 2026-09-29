@@ -7,7 +7,7 @@ date = Date(2025, 6, 19)
 tags = ["blog", "julia", "p3p", "pnp", ""]
 +++
 
-# A Small Index of My Julia Packages
+# A small index of my julia packages
 Recently, I've had a lot of fun building and releasing simple packages for the Julia programming language. If you haven't used Julia, it's a fantastic language for mathematicians and the mathematically-inclined: you can use greek letters as variable names, you can omit that ugly `*` sign between constant coefficients and variables (you can write `2x` for `2*x`, for example), and most importantly it is fast. When I think about working on the future of robotics, Julia is my language of choice.
 
 As such, I've recently assembled a couple of small informal Julia packages. I thought it would be helpful to put them all in one place.

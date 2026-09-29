@@ -8,7 +8,7 @@ date = Date(2025, 12, 10)
 tags = ["blog", "SDP", "visualization"]
 +++
 
-# Visualizing Semidefinite Relaxations
+# Visualizing semidefinite relaxations
 Many robotics researchers (including myself!) have shown something like this image to explain the main idea behind an SDP relaxation:
 
 @@figure

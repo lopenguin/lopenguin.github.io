@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="/libs/katex/katex.min.css">
+     
+  
+  
+   <script src="https://cdn.plot.ly/plotly-3.3.0.min.js" charset="utf-8"></script>
+<script>
+    // This function is used when calling `\fig{...}` See # Using \fig{...} below
+    const PlotlyJS_json = async (div, url) => {
+    response = await fetch(url); // get file
+    fig = await response.json(); // convert it to json
+    // Make the plot fit the screen responsively. See the documentation of plotly.js. https://plotly.com/javascript/responsive-fluid-layout/
+    if (typeof fig.config === 'undefined') { fig["config"]={} }
+    delete fig.layout.width
+    delete fig.layout.height
+    fig["layout"]["autosize"] = true
+    fig["config"]["autosizable"] = true
+    fig["config"]["responsive"] = true
+
+    // make it easier to scroll throught the website rather than being blocked by a figure.
+    fig.config["scrollZoom"] = false
+
+    // PlotlyJS.savefig by default add the some more attribute to make a static plot.
+    // Disable them to make the website fancier.
+    delete fig.config.staticPlot
+    delete fig.config.displayModeBar
+    delete fig.config.doubleClick
+    delete fig.config.showTips
+
+    Plotly.newPlot(div, fig);
+    };
+</script> 
+  <!-- <link rel="icon" href="/assets/favicon.ico"> -->
+  <link rel="stylesheet" href="/css/lorenzo.css">
+  <link href="/css/col.css" rel="stylesheet" media="screen and (min-width: 630px)" type="text/css">
+   <title>Separation Polynomials and SDP Optimization</title>  
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png">
+  <link rel="manifest" href="/assets/favicon/site.webmanifest">
+  <link rel="mask-icon" href="/assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+  <link rel="shortcut icon" href="/assets/favicon/favicon.ico">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="msapplication-config" content="/assets/favicon/browserconfig.xml">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400;1,700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+
+<div class="franklin-content" style="margin-top: 1.5em;">
+    <a href="/""><b>(home)</b></a>
+</div>
+
+<!-- Content appended here --><div class="franklin-content">
+<h1 id="separation_polynomials_and_sdp_optimization"><a href="#separation_polynomials_and_sdp_optimization" class="header-anchor">Separation polynomials and SDP optimization</a></h1>
+<p>Last spring, I took Pablo Parrilo&#39;s <a href="https://canvas.mit.edu/courses/36978">semidefinite programming course</a> and got to dive really deep into polynomial optimization. One of the things that piqued my interest was generalizing separating hyperplanes to separating <em>polynomials</em>. I&#39;ve already written about how the <a href="/blog/2025/lagrangiansos/">SOS hierarchy generalizes the Lagrangian</a>. The separating hyperplane story is, in a sense, the same story from a different perspective. After all, <a href="https://www.mit.edu/~gfarina/2024/67220s24_L04A_separation/L04A.pdf">separation implies optimization</a>.</p>
+<h2 id="the_setup"><a href="#the_setup" class="header-anchor">The Setup</a></h2>
+<footer>
+    <a href="https://franklinjl.org/">
+    <img style="float:right;width:1.8em;" src="/assets/franklin.svg" alt="Franklin Logo">
+    </a>
+
+    <a href="http://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a> Lorenzo Shaikewitz. Last modified: September 28, 2026.
+    <br>
+    Website built with <a href="https://github.com/tlienart/Franklin.jl">Franklin.jl</a> and the <a href="https://julialang.org">Julia programming language</a>.
+</footer>
+</div><!-- CONTENT ENDS HERE -->
+    
+        <script src="/libs/katex/katex.min.js"></script>
+<script src="/libs/katex/contrib/auto-render.min.js"></script>
+<script>renderMathInElement(document.body)</script>
+
+    
+    
+  </body>
+</html>

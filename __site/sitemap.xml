@@ -2,6 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
+    <loc>blog\2025\cast2\index.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>blog\2025\juliapkgs\index.html</loc>
+    <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>links\index.html</loc>
+    <lastmod>2026-09-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>papers\2023\bitetransfer\index.html</loc>
+    <lastmod>2025-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
     <loc>blog\2025\lagrangiansos\index.html</loc>
     <lastmod>2025-12-11</lastmod>
     <changefreq>monthly</changefreq>
@@ -9,19 +33,7 @@
 </url>
 <url>
     <loc>index.html</loc>
-    <lastmod>2026-09-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>blog\2025\undergrad\index.html</loc>
-    <lastmod>2025-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>blog\2025\juliapkgs\index.html</loc>
-    <lastmod>2025-06-20</lastmod>
+    <lastmod>2025-12-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -44,14 +56,8 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>links\index.html</loc>
-    <lastmod>2026-09-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-</url>
-<url>
-    <loc>papers\2025\masters\index.html</loc>
-    <lastmod>2025-10-11</lastmod>
+    <loc>blog\2026\polynomialsep\index.html</loc>
+    <lastmod>2026-09-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
@@ -74,13 +80,13 @@
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>papers\2023\bitetransfer\index.html</loc>
-    <lastmod>2025-06-10</lastmod>
+    <loc>papers\2025\masters\index.html</loc>
+    <lastmod>2025-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
 </url>
 <url>
-    <loc>blog\2025\cast2\index.html</loc>
+    <loc>blog\2025\undergrad\index.html</loc>
     <lastmod>2025-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
