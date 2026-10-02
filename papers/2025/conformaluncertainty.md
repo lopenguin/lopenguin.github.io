@@ -21,7 +21,7 @@ tags = ["rotations", "SDP", "papers", "selected", "pose", "masters"]
 
 ## BibTeX
 ```plaintext
-@ARTICLE{Shaikewitz2026_SLUEPoseUncertainty,
+@article{Shaikewitz2026_SLUEPoseUncertainty,
   author={Shaikewitz, Lorenzo and Georgiou, Charis and Carlone, Luca},
   journal={IEEE Transactions on Robotics}, 
   title={Uncertainty Quantification for Visual Object Pose Estimation: S-Lemma Ellipsoidal Bounds}, 
