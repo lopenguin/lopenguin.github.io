@@ -1,5 +1,5 @@
 +++
-title = "Visualizing Semidefinite Relaxation"
+title = "Visualizing Semidefinite Relaxations"
 hasmath = true
 hascode = false
 hasplotly = true

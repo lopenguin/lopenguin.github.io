@@ -7,7 +7,7 @@ hasjsx = false
 date = Date(2025, 5, 16)
 arxiv = ""
 venue = "D-Space"
-link = "https://dspace.mit.edu/handle/1721.1/163014"
+link = "https://hdl.handle.net/1721.1/163014"
 code = ""
 video = "/papers/2025/masters"
 authors = "Lorenzo Shaikewitz"
@@ -93,7 +93,12 @@ $$
 
 ## BibTeX
 ```plaintext
-@misc{Coming soon!}
+@mastersthesis{Shaikewitz2025_Optimization,
+  title={Optimization Techniques for Trustworthy 3D Object Understanding},
+  author={Shaikewitz, Lorenzo Franceschini},
+  year={2025},
+  school={Massachusetts Institute of Technology}
+}
 ```
 
 ## Related Papers
