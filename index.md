@@ -33,11 +33,13 @@ hascode = false
 
 <!-- Research Section -->
 ### Research
+*I'm starting to work on Bayesian interpretations of sums-of-squares.*
+{{paperswithtags selected ksos}}
+
 *In my masters I focused on finding global solutions to shape and pose estimation problems.*
 {{paperswithtags selected masters}}
 
-*During my undergrad I worked on assistive devices, including robotic feeding.*
-{{paperswithtags selected feeding}}
+*See [here](/papers) for additional selected papers, and visit [google scholar](https://scholar.google.com/citations?user=BEWmPskAAAAJ) for all my publications.*
 
 
 <!-- Blog Section -->

@@ -93,7 +93,7 @@ $$
 
 ## BibTeX
 ```plaintext
-@mastersthesis{Shaikewitz2025_Optimization,
+@mastersthesis{Shaikewitz25thesis_Optimization,
   title={Optimization Techniques for Trustworthy 3D Object Understanding},
   author={Shaikewitz, Lorenzo Franceschini},
   year={2025},

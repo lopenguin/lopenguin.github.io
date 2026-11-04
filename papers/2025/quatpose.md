@@ -26,7 +26,7 @@ tags = ["rotations", "SDP", "papers", "selected", "pose", "masters"]
 
 ## BibTeX
 ```plaintext
-@inproceedings{Shaikewitz25arxiv-FastShapeAndPose,
+@inproceedings{Shaikewitz26icra_FastShapeAndPose,
       author={Shaikewitz, Lorenzo and Nguyen, Tim and Carlone, Luca},
       booktitle={2026 IEEE International Conference on Robotics and Automation (ICRA)}, 
       title={Category-Level Object Shape and Pose Estimation in Less Than a Millisecond}, 

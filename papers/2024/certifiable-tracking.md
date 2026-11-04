@@ -26,7 +26,7 @@ tags = ["rotations", "SDP", "papers", "selected", "CAST", "CASTW", "pose", "mast
 
 ## BibTeX
 ```plaintext
-@misc{Shaikewitz24-trackingCAST,
+@misc{Shaikewitz24_trackingCAST,
     author={Shaikewitz, Lorenzo and Ubellacker, Samuel and Carlone, Luca},
     journal={IEEE Robotics and Automation Letters},
     title={A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking},
