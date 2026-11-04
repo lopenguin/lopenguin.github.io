@@ -17,6 +17,13 @@ tags = ["rotations", "SDP", "papers", "selected", "CAST", "CASTW", "pose", "mast
 
 # A Certifiable Algorithm for Simultaneous Shape Estimation and Object Tracking
 
+## Poster
+~~~
+<a href="/assets/posters/CASTPoster.png">
+<img src="/assets/posters/CASTPoster.png" alt="Click to zoom in">
+</a>
+~~~
+
 ## BibTeX
 ```plaintext
 @misc{Shaikewitz24-trackingCAST,

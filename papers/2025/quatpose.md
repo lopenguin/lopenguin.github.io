@@ -17,7 +17,12 @@ tags = ["rotations", "SDP", "papers", "selected", "pose", "masters"]
 
 # Category-Level Object Shape and Pose Estimation in Less Than a Millisecond
 
-
+## Poster
+~~~
+<a href="/assets/posters/FastPACEPoster.png">
+<img src="/assets/posters/FastPACEPoster.png" alt="Click to zoom in">
+</a>
+~~~
 
 ## BibTeX
 ```plaintext
