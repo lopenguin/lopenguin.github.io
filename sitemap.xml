@@ -92,6 +92,18 @@
     <priority>0.5</priority>
 </url>
 <url>
+    <loc>papers/index.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
+    <loc>papers/2026/sosbayesopt/index.html</loc>
+    <lastmod>2026-11-04</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+</url>
+<url>
     <loc>latex/</loc>
     <lastmod>2026-11-04</lastmod>
     <changefreq>monthly</changefreq>
