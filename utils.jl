@@ -157,7 +157,7 @@ end
 
 Find and list all papers with all tags in `params`.
 """
-function hfun_paperswithtags(params)::String
+@delay function hfun_paperswithtags(params)::String
     folder = "papers"
     checktags = params
 
