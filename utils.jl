@@ -157,7 +157,7 @@ end
 
 Find and list all papers with all tags in `params`.
 """
-@delay function hfun_paperswithtags(params)::String
+function hfun_paperswithtags(params)::String
     folder = "papers"
     checktags = params
 
@@ -165,6 +165,9 @@ Find and list all papers with all tags in `params`.
     paths = []
     for (root, _, files) in walkdir(folder) # (replace by your choice of dir)
         for file in files
+            if file == "index.md"
+                continue
+            end
             path = joinpath(root, file)
 
             # check tags
@@ -221,7 +224,7 @@ Find and list all papers with all tags in `params`.
         end
         # arXiv
         arxiv = pagevar(path, :arxiv)
-        if !isempty(arxiv)
+        if !isnothing(arxiv) && !isempty(arxiv)
             write(io, """<a href=$(arxiv)>arXiv</a>""")
             write(io, "&ensp;/&ensp;")
         end
@@ -238,7 +241,7 @@ Find and list all papers with all tags in `params`.
             write(io, "&ensp;/&ensp;")
         end
         # bibtex
-        write(io, """<a href="/$(l[1:end-1])#bibtex">bibTeX</a>\n""")
+        write(io, """<a href="/$(l[1:end-1])">extras</a>\n""")
         write(io, """</div>\n""")
         # if i != length(paths)
         #     write(io, "<br>")
