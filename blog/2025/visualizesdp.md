@@ -18,7 +18,7 @@ Many robotics researchers (including myself!) have shown something like this ima
     @@
 @@
 
-This visualization gets across the rough point: we solve a convex problem and arrive at the global minimizer (sometimes). But it's also wrong. The relaxation doesn't change the function value! Consider a generic relaxation:
+This visualization gets across the rough point: we solve a convex problem and arrive at the global minimizer (sometimes). But it's also wrong. The relaxation doesn't change the function value! Consider a generic moment relaxation:
 
 \begin{equation}
 f_\mathrm{orig}(x) = x^T A x
