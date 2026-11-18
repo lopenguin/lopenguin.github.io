@@ -1,4 +1,4 @@
-Sitemap: sitemap.xml
+Sitemap: https://lorenzo.shaikewitz.com/sitemap.xml
 
 User-agent: *
 Disallow:
